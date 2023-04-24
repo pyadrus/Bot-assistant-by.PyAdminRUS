@@ -8,6 +8,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils import executor
 from aiogram.types import InputFile
 import os
+import math
 
 storage = MemoryStorage()
 BOT_TOKEN = '6140987401:AAGvPst8Ot2QEOv0VExkYcicGWLoBXanbmg'
@@ -25,20 +26,55 @@ class Form(StatesGroup):
 async def start_command(message: types.Message):
     """Обрабатываем команду /start"""
     main_keyboard = InlineKeyboardMarkup()
-    raport_button = InlineKeyboardButton(text='Рапорта 2023', callback_data='rap')
+    raport_button = InlineKeyboardButton(text='🔨Рапорта 2023', callback_data='rap')
     main_keyboard.row(raport_button)
+    days_off_button = InlineKeyboardButton(text='📅 Выходные дни 2023', callback_data='days_off')
+    main_keyboard.row(days_off_button)
     await message.reply("Выберите пункт:", reply_markup=main_keyboard)
+
+
+@dp.callback_query_handler(lambda c: c.data in ['days_off'])
+async def days_off_callback_month(callback_query: types.CallbackQuery):
+    """Плановые и выходные дни в Мае 2023"""
+    keyboard = InlineKeyboardMarkup()
+    mar_button = InlineKeyboardButton(text='📅 Май 2023', callback_data='mar_days_off')
+    keyboard.row(mar_button)
+    await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
+
+
+@dp.callback_query_handler(lambda c: c.data in ['mar_days_off'])
+async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+    selected_month = callback_query.data
+    await state.update_data(month=selected_month)
+    await Form.district.set()
+
+    norm_working_days = 19
+    norm_working_hours = norm_working_days * 8
+    norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
+    norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
+
+    response_message = callback_query.message
+    await response_message.answer(f"<code>✅ Норма выходов в Мае 2023:</code><b> {norm_working_days}</b>\n"
+                                  f"\n<code>📅 Выходные:</code><b> 6, 7, 8, 13, 14, 20, 21, 27, 28</b>\n"
+                                  f"<code>📅 Праздничные:</code><b> 1, 9, 11</b>\n"
+                                  f"\n<code>📅 Выходные поверхность:</code><b> 1, 6, 7, 8, 9, 10, 13, 14, 20, 21, 27, 28</b>\n"
+                                  f"<code>📅 Выходные подземные:</code><b>1, 3, 7, 8, 9, 11, 14, 17, 21, 24, 28</b>\n"
+                                  f"\n<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
+                                  f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
+                                  f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML")
+
+    await state.finish()
 
 
 @dp.callback_query_handler(lambda c: c.data in ['rap'])
 async def process_callback_month(callback_query: types.CallbackQuery):
     keyboard = InlineKeyboardMarkup()
-    mar_button = InlineKeyboardButton(text='Март', callback_data='mar')
+    mar_button = InlineKeyboardButton(text='📅 Март 2023', callback_data='mar_rap')
     keyboard.row(mar_button)
-    await bot.send_message(callback_query.from_user.id, "Выберите месяц:", reply_markup=keyboard)
+    await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
 
 
-@dp.callback_query_handler(lambda c: c.data in ['mar'])
+@dp.callback_query_handler(lambda c: c.data in ['mar_rap'])
 async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
     month = callback_query.data
     await state.update_data(month=month)
