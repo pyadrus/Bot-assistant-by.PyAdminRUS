@@ -9,11 +9,15 @@ from aiogram.utils import executor
 from aiogram.types import InputFile
 import os
 import math
+import configparser
+
+config = configparser.ConfigParser(empty_lines_in_values=False, allow_no_value=True)
+# Считываем токен бота с файла config.ini
+config.read("setting/config.ini")
+bot_token = config.get('BOT_TOKEN', 'BOT_TOKEN')
 
 storage = MemoryStorage()
-BOT_TOKEN = '6140987401:AAGvPst8Ot2QEOv0VExkYcicGWLoBXanbmg'
-
-bot = Bot(token=BOT_TOKEN)
+bot = Bot(token=bot_token)
 dp = Dispatcher(bot, storage=storage)
 
 
@@ -60,7 +64,9 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>📅 Праздничные:</code><b> 1, 9, 11</b>\n"
                                   f"\n<code>📅 Выходные поверхность:</code><b> 1, 6, 7, 8, 9, 10, 13, 14, 20, 21, 27, 28</b>\n"
                                   f"<code>📅 Выходные подземные:</code><b>1, 3, 7, 8, 9, 11, 14, 17, 21, 24, 28</b>\n"
-                                  f"\n<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
+                                  f"\n<code>🔨 Выходов для 6 часовых:</code><b> {norm_working_days}</b>\n"
+                                  f"<code>🔨 Выходов для 8 часовых:</code><b> {norm_working_days}</b>\n"
+                                  f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML")
 
@@ -84,7 +90,9 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>📅 Праздничные:</code><b> 4, 12</b>\n"
                                   f"\n<code>📅 Выходные поверхность:</code><b> 3, 4, 5, 10, 11, 12, 17, 18, 24, 25</b>\n"
                                   f"<code>📅 Выходные подземные:</code><b>4, 5, 7, 11, 12, 14, 18, 21, 25, 28</b>\n"
-                                  f"\n<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
+                                  f"\n<code>🔨 Выходов для 6 часовых:</code><b> {norm_working_days}</b>\n"
+                                  f"<code>🔨 Выходов для 8 часовых:</code><b> {norm_working_days}</b>\n"
+                                  f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML")
 
