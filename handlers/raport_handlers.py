@@ -51,6 +51,15 @@ async def process_callback_monthh(callback_query: types.CallbackQuery, state: FS
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
+@dp.callback_query_handler(lambda c: c.data in ['03_mar_rap'])
+async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+    """Рапорта Март 2023"""
+    month = callback_query.data
+    await state.update_data(month=month)
+    await Form.district.set()
+    await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+
+
 @dp.callback_query_handler(lambda c: c.data in ['04_apr_rap'])
 async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
