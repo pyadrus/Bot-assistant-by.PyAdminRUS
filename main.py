@@ -1,24 +1,18 @@
-import sqlite3
+import configparser
+import math
 
-from aiogram import Bot, Dispatcher, types
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils import executor
-from aiogram.types import InputFile
-import os
-import math
-import configparser
+from handlers import raport_handlers  # Рапорта (не удалять)
+from system import dp, bot
 
 config = configparser.ConfigParser(empty_lines_in_values=False, allow_no_value=True)
 # Считываем токен бота с файла config.ini
-config.read("setting/config.ini")
+config.read("settings/config.ini")
 bot_token = config.get('BOT_TOKEN', 'BOT_TOKEN')
-
-storage = MemoryStorage()
-bot = Bot(token=bot_token)
-dp = Dispatcher(bot, storage=storage)
 
 
 class Form(StatesGroup):
@@ -32,8 +26,47 @@ async def start_command(message: types.Message):
     main_keyboard = InlineKeyboardMarkup()
     raport_button = InlineKeyboardButton(text='🔨Рапорта 2023', callback_data='rap')
     days_off_button = InlineKeyboardButton(text='📅 Выходные дни 2023', callback_data='days_off')
+    feedback_button = InlineKeyboardButton(text='⁉️ Задать вопрос, напомнить, замечание', callback_data='feedback')
     main_keyboard.row(raport_button, days_off_button)
+    main_keyboard.row(feedback_button)
     await message.reply("Выберите пункт:", reply_markup=main_keyboard)
+
+
+class FeedbackState(StatesGroup):
+    """Для обратной связи"""
+    WAITING_FOR_FEEDBACK = State()
+
+
+@dp.callback_query_handler(lambda c: c.data in ['feedback'])
+async def feedback_command_handler(callback_query: types.CallbackQuery, state: FSMContext):
+    """Обратная связь с админом"""
+    instructions = "Введите табельный номер и ваш вопрос ❓ Сообщения без табельного номера не будет обработано ❗️"
+    await bot.send_message(chat_id=callback_query.from_user.id, text=instructions)
+    await FeedbackState.WAITING_FOR_FEEDBACK.set()
+    await state.update_data(user_id=callback_query.from_user.id, username=callback_query.from_user.username)
+
+
+# обработчик сообщений обратной связи
+@dp.message_handler(state=FeedbackState.WAITING_FOR_FEEDBACK, content_types=types.ContentType.TEXT)
+async def feedback_message_handler(message: types.Message, state: FSMContext):
+    user_feedback = message.text
+
+    # получить данные пользователя из состояния
+    state_data = await state.get_data()
+    user_id = state_data.get("user_id")
+    username = state_data.get("username")
+
+    # отправить сообщение в группу Telegram
+    group_id = -1001768846220  # замените это значение на ID вашей группы
+    feedback_message = f"Сообщение от пользователя {username} (ID: {user_id}):\n\n{user_feedback}"
+    await bot.send_message(chat_id=group_id, text=feedback_message)
+
+    # отправить подтверждение пользователю
+    confirmation_message = "Ваше сообщение отправлено!"
+    await bot.send_message(chat_id=user_id, text=confirmation_message)
+
+    # сбросить состояние обратно в None
+    await state.finish()
 
 
 @dp.callback_query_handler(lambda c: c.data in ['days_off'])
@@ -96,55 +129,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML")
 
-    await state.finish()
-
-
-@dp.callback_query_handler(lambda c: c.data in ['rap'])
-async def process_callback_month(callback_query: types.CallbackQuery):
-    keyboard = InlineKeyboardMarkup()
-    mar_button = InlineKeyboardButton(text='📅 Март 2023', callback_data='mar_rap')
-    keyboard.row(mar_button)
-    await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
-
-
-@dp.callback_query_handler(lambda c: c.data in ['mar_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
-    month = callback_query.data
-    await state.update_data(month=month)
-    await Form.district.set()
-    await bot.send_message(callback_query.from_user.id, "Введите код участка:")
-
-
-@dp.message_handler(state=Form.district)
-async def process_district(message: types.Message, state: FSMContext):
-    async with state.proxy() as data:
-        month = data['month']
-        district = message.text
-
-    # Запись в базу данных
-    user_id = message.from_user.id
-    username = message.from_user.username
-    timestamp = str(message.date)
-    file_name = district + '.xls'
-
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    # Создаем таблицу, если ее нет
-    cursor.execute("""CREATE TABLE IF NOT EXISTS user_requests (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,
-                                                                username TEXT, timestamp TEXT, file_name TEXT)""")
-    # Добавляем запись в таблицу
-    cursor.execute("""INSERT INTO user_requests (user_id, username, timestamp, file_name) 
-                      VALUES (?, ?, ?, ?)""", (user_id, username, timestamp, file_name))
-    conn.commit()
-
-    # Поиск и отправка файла
-    file_path = f"Рапорта/03_{month}_2023/{district}.xls"
-    if os.path.isfile(file_path):
-        with open(file_path, "rb") as file:
-            await message.answer_document(InputFile(file))
-    else:
-        await message.answer("Файл не найден. Проверьте правильность введенного кода. Нажмите /start еще раз, "
-                             "что бы повторить запрос")
     await state.finish()
 
 
