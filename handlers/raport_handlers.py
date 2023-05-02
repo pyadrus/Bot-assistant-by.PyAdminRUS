@@ -6,26 +6,27 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import InputFile
 
-from main import Form
-from system import dp, bot
+# from main import Form
+from system.global_variables import *
+from system.system import dp, bot
 
 
 @dp.callback_query_handler(lambda c: c.data in ['rap'])
 async def process_callback_month(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта"""
     keyboard = InlineKeyboardMarkup()
-    jan_button = InlineKeyboardButton(text='✅ Январь 23', callback_data='01_jan_rap')
-    feb_button = InlineKeyboardButton(text='✅ Февраль 23', callback_data='02_feb_rap')
-    mar_button = InlineKeyboardButton(text='✅ Март 23', callback_data='03_mar_rap')
-    apr_button = InlineKeyboardButton(text='Апрель 23', callback_data='04_apr_rap')
-    may_button = InlineKeyboardButton(text='Май 23', callback_data='05_may_rap')
-    jun_button = InlineKeyboardButton(text='Июнь 23', callback_data='06_jun_rap')
-    jul_button = InlineKeyboardButton(text='Мюль 23', callback_data='07_jul_rap')
-    aug_button = InlineKeyboardButton(text='Август 23', callback_data='08_aug_rap')
-    sep_button = InlineKeyboardButton(text='Сентябрь 23', callback_data='09_sep_rap')
-    oct_button = InlineKeyboardButton(text='Октябрь 23', callback_data='10_oct_rap')
-    nov_button = InlineKeyboardButton(text='Ноябрь 23', callback_data='11_nov_rap')
-    dec_button = InlineKeyboardButton(text='Декабрь 23', callback_data='12_dec_rap')
+    jan_button = InlineKeyboardButton(text=f'✅ {jan}', callback_data='01_jan_rap')
+    feb_button = InlineKeyboardButton(text=f'✅ {feb}', callback_data='02_feb_rap')
+    mar_button = InlineKeyboardButton(text=f'✅ {mar}', callback_data='03_mar_rap')
+    apr_button = InlineKeyboardButton(text=f'{apr}', callback_data='04_apr_rap')
+    may_button = InlineKeyboardButton(text=f'{may}', callback_data='05_may_rap')
+    jun_button = InlineKeyboardButton(text=f'{june}', callback_data='06_jun_rap')
+    jul_button = InlineKeyboardButton(text=f'{jul}', callback_data='07_jul_rap')
+    aug_button = InlineKeyboardButton(text=f'{aug}', callback_data='08_aug_rap')
+    sep_button = InlineKeyboardButton(text=f'{sep}', callback_data='09_sep_rap')
+    oct_button = InlineKeyboardButton(text=f'{oct}', callback_data='10_oct_rap')
+    nov_button = InlineKeyboardButton(text=f'{nov}', callback_data='11_nov_rap')
+    dec_button = InlineKeyboardButton(text=f'{dec}', callback_data='12_dec_rap')
     keyboard.row(jan_button, feb_button, mar_button)
     keyboard.row(apr_button, may_button, jun_button)
     keyboard.row(jul_button, aug_button, sep_button)
