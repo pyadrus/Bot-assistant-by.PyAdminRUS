@@ -6,7 +6,6 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import InputFile
 
-# from main import Form
 from system.global_variables import *
 from system.system import dp, bot
 
@@ -170,6 +169,12 @@ async def process_district(message: types.Message, state: FSMContext):
         with open(file_path, "rb") as file:
             await message.answer_document(InputFile(file))
     else:
+        # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
+        keyboard = types.InlineKeyboardMarkup()
+        feedback_button = InlineKeyboardButton(text='⁉️ Если рапорт не найден, нажмите ТУТ',
+                                               callback_data='feedback')
+        keyboard.add(feedback_button)
+
         await message.answer("Файл не найден. Проверьте правильность введенного кода. Нажмите /start еще раз, "
-                             "что бы повторить запрос")
+                             "что бы повторить запрос", reply_markup=keyboard)
     await state.finish()
