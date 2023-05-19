@@ -17,7 +17,7 @@ async def process_callback_month(callback_query: types.CallbackQuery):
     jan_button = InlineKeyboardButton(text=f'✅ {jan}', callback_data='01_jan_rap')
     feb_button = InlineKeyboardButton(text=f'✅ {feb}', callback_data='02_feb_rap')
     mar_button = InlineKeyboardButton(text=f'✅ {mar}', callback_data='03_mar_rap')
-    apr_button = InlineKeyboardButton(text=f'{apr}', callback_data='04_apr_rap')
+    apr_button = InlineKeyboardButton(text=f'✅ {apr}', callback_data='04_apr_rap')
     may_button = InlineKeyboardButton(text=f'{may}', callback_data='05_may_rap')
     jun_button = InlineKeyboardButton(text=f'{june}', callback_data='06_jun_rap')
     jul_button = InlineKeyboardButton(text=f'{jul}', callback_data='07_jul_rap')
