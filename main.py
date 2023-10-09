@@ -6,6 +6,9 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils import executor
+
+from handlers.days_off_handlers_2022 import day_off_handler_22
+from keyboards.welcome_keyboard import welcome_keyboard
 from system.system import dp, bot
 from handlers import raport_handlers  # Рапорта (не удалять)
 from handlers import days_off_handlers  # Рапорта (не удалять)
@@ -19,12 +22,7 @@ bot_token = config.get('BOT_TOKEN', 'BOT_TOKEN')
 @dp.message_handler(commands=['start'])
 async def start_command(message: types.Message):
     """Обрабатываем команду /start"""
-    main_keyboard = InlineKeyboardMarkup()
-    raport_button = InlineKeyboardButton(text='🔨Рапорта 2023', callback_data='rap')
-    days_off_button = InlineKeyboardButton(text='📅 Выходные дни 2023', callback_data='days_off')
-    feedback_button = InlineKeyboardButton(text='⁉️ Задать вопрос, напомнить, замечание', callback_data='feedback')
-    main_keyboard.row(raport_button, days_off_button)
-    main_keyboard.row(feedback_button)
+    main_keyboard = welcome_keyboard()  # Клавиатура приветствие
     await message.reply("Выберите пункт:", reply_markup=main_keyboard)
 
 
@@ -67,3 +65,4 @@ async def feedback_message_handler(message: types.Message, state: FSMContext):
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
+    day_off_handler_22()
