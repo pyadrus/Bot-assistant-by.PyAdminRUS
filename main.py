@@ -9,6 +9,7 @@ from aiogram.utils import executor
 
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from keyboards.welcome_keyboard import welcome_keyboard
+from messages.user_messages import welcome_text
 from system.system import dp, bot
 from handlers import raport_handlers  # Рапорта (не удалять)
 from handlers import days_off_handlers  # Рапорта (не удалять)
@@ -20,10 +21,21 @@ bot_token = config.get('BOT_TOKEN', 'BOT_TOKEN')
 
 
 @dp.message_handler(commands=['start'])
-async def start_command(message: types.Message):
+async def start_command(message: types.Message, state: FSMContext):
     """Обрабатываем команду /start"""
+    await state.finish()  # Завершаем текущее состояние машины состояний
+    await state.reset_state()  # Сбрасываем все данные машины состояний, до значения по умолчанию
     main_keyboard = welcome_keyboard()  # Клавиатура приветствие
-    await message.reply("Выберите пункт:", reply_markup=main_keyboard)
+    await message.answer(welcome_text, reply_markup=main_keyboard)
+
+
+@dp.callback_query_handler(lambda c: c.data == "menu")
+async def return_to_menu(callback_query: types.CallbackQuery, state: FSMContext):
+    """Обрабатываем команду /menu или кнопку для возвращения в начальное меню"""
+    await state.finish()  # Завершаем текущее состояние машины состояний
+    await state.reset_state()  # Сбрасываем все данные машины состояний, до значения по умолчанию
+    main_keyboard = welcome_keyboard()  # Клавиатура приветствия
+    await callback_query.message.answer(welcome_text, reply_markup=main_keyboard)
 
 
 class FeedbackState(StatesGroup):
