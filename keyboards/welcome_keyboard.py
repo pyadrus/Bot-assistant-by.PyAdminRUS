@@ -27,5 +27,15 @@ def return_start_menu_keyboard():
     return keyboard_return
 
 
+def keyboard_go_back() -> InlineKeyboardMarkup:
+    """Клавиатура '↩️ Вернуться в начальное меню'"""
+    markup = InlineKeyboardMarkup()  # создаем клавиатуру
+    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
+    # создаем разметку для кнопки
+    markup.add(return_to_menu_button)
+    return markup
+
+
 if __name__ == "__main__":
     welcome_keyboard()
+    keyboard_go_back()

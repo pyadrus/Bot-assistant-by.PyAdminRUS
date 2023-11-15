@@ -4,6 +4,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from keyboards.welcome_keyboard import keyboard_go_back
 from system.global_variables import *
 from system.system import dp, bot
 
@@ -58,10 +59,7 @@ async def working_days_per_year_process_callback(callback_query: types.CallbackQ
     dec_2023 = 21  # 12
     days_all = (jan_2023 + feb_2023 + mar_2023 + apr_2023 + may_2023 + jun_2023 +
                 jul_2023 + aug_2023 + sep_2023 + oct_2023 + nov_2023 + dec_2023)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>Количество рабочих дней в 2023 году</code>\n"
@@ -94,10 +92,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
 
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {jan}:</code><b> {norm_working_days}</b>\n"
@@ -125,10 +120,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {feb}:</code><b> {norm_working_days}</b>\n"
@@ -156,10 +148,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {mar}:</code><b> {norm_working_days}</b>\n"
@@ -187,10 +176,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {apr}:</code><b> {norm_working_days}</b>\n"
@@ -218,10 +204,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {may}:</code><b> {norm_working_days}</b>\n"
@@ -249,10 +232,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {june}:</code><b> {norm_working_days}</b>\n"
@@ -280,10 +260,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {jul}:</code><b> {norm_working_days}</b>\n"
@@ -311,10 +288,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {aug}:</code><b> {norm_working_days}</b>\n"
@@ -342,10 +316,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {sep}:</code><b> {norm_working_days}</b>\n"
@@ -373,10 +344,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {oct}:</code><b> {norm_working_days}</b>\n"
@@ -404,10 +372,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {nov}:</code><b> {norm_working_days}</b>\n"
@@ -435,10 +400,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
-    # создаем кнопку
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # создаем разметку для кнопки
-    markup = InlineKeyboardMarkup().add(return_to_menu_button)
+    markup = keyboard_go_back()  # Клавиатура возврата в начальное меню
     # добавляем разметку в сообщение
     response_message = callback_query.message
     await response_message.answer(f"<code>✅ Норма выходов в {dec}:</code><b> {norm_working_days}</b>\n"
