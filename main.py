@@ -1,19 +1,18 @@
 import configparser
-# import math
 
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils import executor
 
+from handlers.ai_handlers import register_send_gpt_handler
+from handlers.days_off_handlers import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2022 import day_off_handler_22
+from handlers.raport_handlers import register_raport_handler
 from handlers.table_handlers import register_table_handler_handler
 from keyboards.welcome_keyboard import welcome_keyboard
 from messages.user_messages import welcome_text
 from system.system import dp, bot
-from handlers import raport_handlers  # Рапорта (не удалять)
-from handlers import days_off_handlers  # Рапорта (не удалять)
 
 config = configparser.ConfigParser(empty_lines_in_values=False, allow_no_value=True)
 # Считываем токен бота с файла config.ini
@@ -74,3 +73,7 @@ if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
     day_off_handler_22()
     register_table_handler_handler()
+    return_to_menu()
+    register_send_gpt_handler()
+    register_raport_handler()  # Рапорт 2023
+    register_days_off_callback_month_handler()  # Выходные дни в 2023 году

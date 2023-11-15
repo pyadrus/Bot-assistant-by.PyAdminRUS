@@ -225,3 +225,7 @@ def create_feedback_and_return_to_menu_keyboard():
     keyboard.add(feedback_button)
     keyboard.add(return_to_menu_button)
     return keyboard
+
+def register_raport_handler():
+    """Регистрируем handlers для работы в выходной день"""
+    dp.register_message_handler(process_callback_month)

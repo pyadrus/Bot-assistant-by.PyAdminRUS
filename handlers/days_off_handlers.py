@@ -415,3 +415,8 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
     await state.finish()
+
+
+def register_days_off_callback_month_handler():
+    """Регистрируем handlers для бота"""
+    dp.register_message_handler(days_off_callback_month)
