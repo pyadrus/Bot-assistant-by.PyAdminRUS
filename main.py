@@ -53,20 +53,18 @@ async def feedback_command_handler(callback_query: types.CallbackQuery, state: F
     await state.update_data(user_id=callback_query.from_user.id, username=callback_query.from_user.username)
 
 
-# обработчик сообщений обратной связи
 @dp.message_handler(state=FeedbackState.WAITING_FOR_FEEDBACK, content_types=types.ContentType.TEXT)
 async def feedback_message_handler(message: types.Message, state: FSMContext):
+    """Обработчик сообщений обратной связи"""
     user_feedback = message.text
-    # получить данные пользователя из состояния
-    state_data = await state.get_data()
+    state_data = await state.get_data()  # получить данные пользователя из состояния
     user_id = state_data.get("user_id")
     username = state_data.get("username")
     # отправить сообщение в группу Telegram
     group_id = -1001768846220  # замените это значение на ID вашей группы
     feedback_message = f"Сообщение от пользователя {username} (ID: {user_id}):\n\n{user_feedback}"
     await bot.send_message(chat_id=group_id, text=feedback_message)
-    # отправить подтверждение пользователю
-    confirmation_message = "Ваше сообщение отправлено!"
+    confirmation_message = "Ваше сообщение отправлено!"  # отправить подтверждение пользователю
     await bot.send_message(chat_id=user_id, text=confirmation_message)
     # сбросить состояние обратно в None
     await state.finish()

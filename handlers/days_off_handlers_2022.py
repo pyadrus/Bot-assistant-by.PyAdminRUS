@@ -29,12 +29,13 @@ async def days_off_callback_month(callback_query: types.CallbackQuery):
     # Рабочие дни в году
     working_days_per_year = InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2022 году',
                                                  callback_data='working_days_per_year_2022')
-
+    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
     keyboard.row(jan_button, feb_button, mar_button)
     keyboard.row(apr_button, may_button, jun_button)
     keyboard.row(jul_button, aug_button, sep_button)
     keyboard.row(oct_button, nov_button, dec_button)
     keyboard.row(working_days_per_year)
+    keyboard.row(return_to_menu_button)
     await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
 
 
