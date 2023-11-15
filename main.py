@@ -8,6 +8,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils import executor
 
 from handlers.days_off_handlers_2022 import day_off_handler_22
+from handlers.table_handlers import register_table_handler_handler
 from keyboards.welcome_keyboard import welcome_keyboard
 from messages.user_messages import welcome_text
 from system.system import dp, bot
@@ -56,21 +57,17 @@ async def feedback_command_handler(callback_query: types.CallbackQuery, state: F
 @dp.message_handler(state=FeedbackState.WAITING_FOR_FEEDBACK, content_types=types.ContentType.TEXT)
 async def feedback_message_handler(message: types.Message, state: FSMContext):
     user_feedback = message.text
-
     # получить данные пользователя из состояния
     state_data = await state.get_data()
     user_id = state_data.get("user_id")
     username = state_data.get("username")
-
     # отправить сообщение в группу Telegram
     group_id = -1001768846220  # замените это значение на ID вашей группы
     feedback_message = f"Сообщение от пользователя {username} (ID: {user_id}):\n\n{user_feedback}"
     await bot.send_message(chat_id=group_id, text=feedback_message)
-
     # отправить подтверждение пользователю
     confirmation_message = "Ваше сообщение отправлено!"
     await bot.send_message(chat_id=user_id, text=confirmation_message)
-
     # сбросить состояние обратно в None
     await state.finish()
 
@@ -78,3 +75,4 @@ async def feedback_message_handler(message: types.Message, state: FSMContext):
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
     day_off_handler_22()
+    register_table_handler_handler()

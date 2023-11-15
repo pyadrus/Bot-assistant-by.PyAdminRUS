@@ -6,6 +6,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import InputFile
 
+from keyboards.welcome_keyboard import return_start_menu_keyboard
 from system.global_variables import *
 from system.system import dp, bot
 
@@ -26,12 +27,13 @@ async def process_callback_month(callback_query: types.CallbackQuery):
     oct_button = InlineKeyboardButton(text=f'{oct}', callback_data='10_oct_rap')
     nov_button = InlineKeyboardButton(text=f'{nov}', callback_data='11_nov_rap')
     dec_button = InlineKeyboardButton(text=f'{dec}', callback_data='12_dec_rap')
+    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
     keyboard.row(jan_button, feb_button, mar_button)
     keyboard.row(apr_button, may_button, jun_button)
     keyboard.row(jul_button, aug_button, sep_button)
     keyboard.row(oct_button, nov_button, dec_button)
+    keyboard.row(return_to_menu_button)
     await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
-
 
 @dp.callback_query_handler(lambda c: c.data in ['01_jan_rap'])
 async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
@@ -155,6 +157,7 @@ list_of_plots_2023 = {110100: "Руководство", 110110: "Тех.служ
                       121730: "УФПО", 121800: "ОФ", 121810: "ИТР ОФ", 121820: "ОП ОФ", 121830: "Электроцех ОФ",
                       121840: "Монтажно-демонтажная группа ОФ", 121850: "Ремонтная группа ОФ",
                       121860: "Углехимическая лаборатория ОФ", 121870: "АБК ОФ", 121900: "Служба складского хозяйства",
+                      121930: "Склад №1",
                       121940: "Склад №2", 121950: "Склад №3", 121960: "Склад строительных материалов",
                       121972: "Склад №4", 121970: "Угольный склад", 121971: "Лесной склад", 122100: "КГЭС",
                       122200: "Уч.по изг и рем.", 122400: "УСМР", 130010: "Общежитие №1", 130020: "Гостиница 'Олимп'",
@@ -183,7 +186,10 @@ async def process_district(message: types.Message, state: FSMContext):
             file_path = f"raports/rap_2023/{month}_2023/{district}.xls"
             if os.path.isfile(file_path):
                 with open(file_path, "rb") as file:
-                    await message.answer_document(InputFile(file), caption=f"Рапорт участка: {district_name}")
+                    keyboard_return = return_start_menu_keyboard()
+                    await message.answer_document(InputFile(file),
+                                                  caption=f"Рапорт участка: {district_name}",
+                                                  reply_markup=keyboard_return)
             else:
                 # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
                 keyboard = create_feedback_and_return_to_menu_keyboard()

@@ -44,19 +44,20 @@ async def working_days_per_year_process_callback(callback_query: types.CallbackQ
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
     await Form.district.set()
-    jan_2022 = 19 # 01
-    feb_2022 = 19 # 02 
-    mar_2022 = 21 # 03
-    apr_2022 = 20 # 04
-    may_2022 = 17 # 05
-    jun_2022 = 20 # 06
-    jul_2022 = 20 # 07
-    aug_2022 = 23 # 08
-    sep_2022 = 22 # 09
-    oct_2022 = 21 # 10
-    nov_2022 = 21 # 11 
-    dec_2022 = 22 # 12
-    days_all = jan_2022 + feb_2022 + mar_2022 + apr_2022 + may_2022 + jun_2022 + jul_2022 + aug_2022 + sep_2022 + oct_2022 + nov_2022 + dec_2022
+    jan_2022 = 19  # 01
+    feb_2022 = 19  # 02
+    mar_2022 = 21  # 03
+    apr_2022 = 20  # 04
+    may_2022 = 17  # 05
+    jun_2022 = 20  # 06
+    jul_2022 = 20  # 07
+    aug_2022 = 23  # 08
+    sep_2022 = 22  # 09
+    oct_2022 = 21  # 10
+    nov_2022 = 21  # 11
+    dec_2022 = 22  # 12
+    days_all = (jan_2022 + feb_2022 + mar_2022 + apr_2022 + may_2022 + jun_2022 +
+                jul_2022 + aug_2022 + sep_2022 + oct_2022 + nov_2022 + dec_2022)
     # создаем кнопку
     feedback_button = InlineKeyboardButton(text='⁉️ Задать вопрос, напомнить, замечание', callback_data='feedback')
     # создаем разметку для кнопки
@@ -106,7 +107,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -134,7 +134,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -162,7 +161,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -190,7 +188,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -218,7 +215,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -246,7 +242,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -274,7 +269,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -284,7 +278,7 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
     await Form.district.set()
- 
+
     norm_working_days = 23
     norm_working_hours = norm_working_days * 8
     norm_hours_12h_shift = math.ceil(norm_working_hours / 12)
@@ -302,7 +296,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -330,7 +323,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -358,7 +350,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -386,7 +377,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
@@ -414,7 +404,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
                                   f"<code>🔨 Выходов для 12 часовых:</code><b> {norm_hours_12h_shift}</b>\n"
                                   f"<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n"
                                   f"\nНажмите /start, чтобы вернуться в начало", parse_mode="HTML", reply_markup=markup)
-
     await state.finish()
 
 
