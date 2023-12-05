@@ -10,6 +10,7 @@ from handlers.days_off_handlers import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from handlers.raport_handlers import register_raport_handler
 from handlers.table_handlers import register_table_handler_handler
+from keyboards.admin_keyboards.admin_keyboards import welcome_keyboard_admin
 from keyboards.welcome_keyboard import welcome_keyboard
 from messages.user_messages import welcome_text
 from system.system import dp, bot
@@ -27,6 +28,17 @@ async def start_command(message: types.Message, state: FSMContext):
     await state.reset_state()  # Сбрасываем все данные машины состояний, до значения по умолчанию
     main_keyboard = welcome_keyboard()  # Клавиатура приветствие
     await message.answer(welcome_text, reply_markup=main_keyboard)
+
+
+@dp.message_handler(commands=['admin'])
+async def admin_start_command(message: types.Message, state: FSMContext):
+    """Админ панель"""
+    await state.finish()
+    await state.reset_state()
+    main_keyboard = welcome_keyboard_admin()
+    admin_welcome_text = ('Админ панель\n'
+                          'Сделай свой выбор')
+    await message.answer(admin_welcome_text, reply_markup=main_keyboard)
 
 
 @dp.callback_query_handler(lambda c: c.data == "menu")
