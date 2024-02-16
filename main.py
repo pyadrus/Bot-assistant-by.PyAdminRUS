@@ -5,20 +5,25 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.utils import executor
 
-from handlers.ai_handlers import register_send_gpt_handler
-from handlers.days_off_handlers import register_days_off_callback_month_handler
+# from handlers.ai_handlers import register_send_gpt_handler
+from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2022 import day_off_handler_22
+from handlers.days_off_handlers_2024 import register_days_off_callback_month_handler_2024
 from handlers.raport_handlers import register_raport_handler
+from handlers.sample_orders_handlers import register_sample_orders_handler
 from handlers.table_handlers import register_table_handler_handler
 from keyboards.admin_keyboards.admin_keyboards import welcome_keyboard_admin
 from keyboards.welcome_keyboard import welcome_keyboard
 from messages.user_messages import welcome_text
 from system.system import dp, bot
+from loguru import logger
 
 config = configparser.ConfigParser(empty_lines_in_values=False, allow_no_value=True)
 # Считываем токен бота с файла config.ini
 config.read("settings/config.ini")
 bot_token = config.get('BOT_TOKEN', 'BOT_TOKEN')
+
+logger.add('log/log.log')
 
 
 @dp.message_handler(commands=['start'])
@@ -82,10 +87,15 @@ async def feedback_message_handler(message: types.Message, state: FSMContext):
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
-    day_off_handler_22()
-    register_table_handler_handler()
-    return_to_menu()
-    register_send_gpt_handler()
-    register_raport_handler()  # Рапорт 2023
-    register_days_off_callback_month_handler()  # Выходные дни в 2023 году
+    try:
+        executor.start_polling(dp, skip_updates=True)
+        day_off_handler_22()
+        register_table_handler_handler()
+        return_to_menu()
+        # register_send_gpt_handler() # GPT ответ
+        register_raport_handler()  # Рапорт 2023
+        register_days_off_callback_month_handler()  # Выходные дни в 2023 году
+        register_days_off_callback_month_handler_2024()  # Выходные дни в 2024 году
+        register_sample_orders_handler()  # Образцы приказов
+    except Exception as e:
+        logger.info(e)
