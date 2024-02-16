@@ -10,6 +10,7 @@ from handlers.days_off_handlers_2023 import register_days_off_callback_month_han
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from handlers.days_off_handlers_2024 import register_days_off_callback_month_handler_2024
 from handlers.raport_handlers import register_raport_handler
+from handlers.raport_handlers_2024 import register_raport_handler_2024
 from handlers.sample_orders_handlers import register_sample_orders_handler
 from handlers.table_handlers import register_table_handler_handler
 from keyboards.admin_keyboards.admin_keyboards import welcome_keyboard_admin
@@ -97,5 +98,6 @@ if __name__ == '__main__':
         register_days_off_callback_month_handler()  # Выходные дни в 2023 году
         register_days_off_callback_month_handler_2024()  # Выходные дни в 2024 году
         register_sample_orders_handler()  # Образцы приказов
+        register_raport_handler_2024()  # Рапорта 2024
     except Exception as e:
         logger.info(e)

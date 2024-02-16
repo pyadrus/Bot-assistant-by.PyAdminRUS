@@ -1,32 +1,33 @@
 import os
-import sqlite3
 
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import InputFile
+from loguru import logger
 
-from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_go_back
+from handlers.raport_handlers import perform_database_operations, create_feedback_and_return_to_menu_keyboard
+from keyboards.welcome_keyboard import return_start_menu_keyboard
 from system.global_variables import *
 from system.system import dp, bot
 
 
-@dp.callback_query_handler(lambda c: c.data in ['rap'])
-async def process_callback_month(callback_query: types.CallbackQuery):
+@dp.callback_query_handler(lambda c: c.data in ['rap_2024'])
+async def process_callback_month_2024(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта"""
     keyboard = InlineKeyboardMarkup()
-    jan_button = InlineKeyboardButton(text=f'✅ {jan}', callback_data='01_jan_rap')
-    feb_button = InlineKeyboardButton(text=f'✅ {feb}', callback_data='02_feb_rap')
-    mar_button = InlineKeyboardButton(text=f'✅ {mar}', callback_data='03_mar_rap')
-    apr_button = InlineKeyboardButton(text=f'✅ {apr}', callback_data='04_apr_rap')
-    may_button = InlineKeyboardButton(text=f'✅ {may}', callback_data='05_may_rap')
-    jun_button = InlineKeyboardButton(text=f'✅ {june}', callback_data='06_jun_rap')
-    jul_button = InlineKeyboardButton(text=f'✅ {jul}', callback_data='07_jul_rap')
-    aug_button = InlineKeyboardButton(text=f'✅ {aug}', callback_data='08_aug_rap')
-    sep_button = InlineKeyboardButton(text=f'✅ {sep}', callback_data='09_sep_rap')
-    oct_button = InlineKeyboardButton(text=f'✅ {oct}', callback_data='10_oct_rap')
-    nov_button = InlineKeyboardButton(text=f'✅ {nov}', callback_data='11_nov_rap')
-    dec_button = InlineKeyboardButton(text=f'✅ {dec}', callback_data='12_dec_rap')
+    jan_button = InlineKeyboardButton(text=f'✅ {jan_2024}', callback_data='01_jan_rap_2024')
+    feb_button = InlineKeyboardButton(text=f'{feb_2024}', callback_data='02_feb_rap_2024')
+    mar_button = InlineKeyboardButton(text=f'{mar_2024}', callback_data='03_mar_rap_2024')
+    apr_button = InlineKeyboardButton(text=f'{apr_2024}', callback_data='04_apr_rap_2024')
+    may_button = InlineKeyboardButton(text=f'{may_2024}', callback_data='05_may_rap_2024')
+    jun_button = InlineKeyboardButton(text=f'{june_2024}', callback_data='06_jun_rap_2024')
+    jul_button = InlineKeyboardButton(text=f'{jul_2024}', callback_data='07_jul_rap_2024')
+    aug_button = InlineKeyboardButton(text=f'{aug_2024}', callback_data='08_aug_rap_2024')
+    sep_button = InlineKeyboardButton(text=f'{sep_2024}', callback_data='09_sep_rap_2024')
+    oct_button = InlineKeyboardButton(text=f'{oct_2024}', callback_data='10_oct_rap_2024')
+    nov_button = InlineKeyboardButton(text=f'{nov_2024}', callback_data='11_nov_rap_2024')
+    dec_button = InlineKeyboardButton(text=f'{dec_2024}', callback_data='12_dec_rap_2024')
     return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
     keyboard.row(jan_button, feb_button, mar_button)
     keyboard.row(apr_button, may_button, jun_button)
@@ -36,115 +37,127 @@ async def process_callback_month(callback_query: types.CallbackQuery):
     await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
 
 
-@dp.callback_query_handler(lambda c: c.data in ['01_jan_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['01_jan_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['02_feb_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['02_feb_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['03_mar_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['03_mar_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['04_apr_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['04_apr_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['05_may_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['05_may_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['06_jun_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['06_jun_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['07_jul_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['07_jul_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['08_aug_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['08_aug_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['09_sep_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['09_sep_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['10_oct_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['10_oct_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['11_nov_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['11_nov_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-@dp.callback_query_handler(lambda c: c.data in ['12_dec_rap'])
-async def process_callback_monthh(callback_query: types.CallbackQuery, state: FSMContext):
+@dp.callback_query_handler(lambda c: c.data in ['12_dec_rap_2024'])
+async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
+    logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form.district.set()
+    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
 
-list_of_plots_2023 = {110100: "Руководство", 110110: "Тех.служба", 110120: "Производ.служба", 110130: "Техн.служба",
+list_of_plots_2024 = {110100: "Руководство", 110110: "Тех.служба", 110120: "Производ.служба", 110130: "Техн.служба",
                       110140: "СОТ и ТБ", 110150: "Маркшейдерская служба", 110160: "Геологическая служба",
                       110170: "ЭМС", 110191: "ПЭО", 110192: "ООТиЗП", 110193: "Финансовый сектор",
                       110200: "Бухгалтерия", 110211: "Сектор договорной работы",
@@ -172,7 +185,8 @@ list_of_plots_2023 = {110100: "Руководство", 110110: "Тех.служ
                       121972: "Склад №4", 121970: "Угольный склад", 121971: "Лесной склад",
                       122100: "Участок 'Когенерационная электростанция'",
                       122200: "Участок по изготовлению и ремонту оборудования",
-                      122400: "Участок строительно-монтажных работ", 130010: "Общежитие №1", 130020: "Гостиница 'Олимп'",
+                      122400: "Участок строительно-монтажных работ", 130010: "Общежитие №1",
+                      130020: "Гостиница 'Олимп'",
                       130030: "ПТК 'Донецкий'"}
 
 report_no_text_found = ("🚫 <b>Файл не найден или рапорт не сформирован.</b>\n"
@@ -180,22 +194,24 @@ report_no_text_found = ("🚫 <b>Файл не найден или рапорт 
                         "Нажмите <b>'↩️  Вернуться в начальное меню'</b>, чтобы повторить запрос.")
 
 
-@dp.message_handler(state=Form.district)
-async def process_district(message: types.Message, state: FSMContext):
+@dp.message_handler(state=Form_2024.district_2024)
+async def process_district_2024(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         month = data['month']
+        logger.info(f'Вопрос рапорта по месяцу {month}')
         district = message.text
         try:
-            district_name = list_of_plots_2023[int(district)]
-            print(district_name)
+            district_name = list_of_plots_2024[int(district)]
             # Запись в базу данных
             user_id = message.from_user.id
             username = message.from_user.username
             timestamp = str(message.date)
             file_name = district + '.xls'
+            logger.info(
+                f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
             perform_database_operations(user_id, username, timestamp, file_name)
             # Поиск и отправка файла
-            file_path = f"raports/rap_2023/{month}_2023/{district}.xls"
+            file_path = f"raports/rap_2024/{month}/{district}.xls"
             if os.path.isfile(file_path):
                 with open(file_path, "rb") as file:
                     keyboard_return = return_start_menu_keyboard()
@@ -213,43 +229,6 @@ async def process_district(message: types.Message, state: FSMContext):
         await state.finish()
 
 
-# Определение функции для операций с базой данных
-def perform_database_operations(user_id, username, timestamp, file_name):
-    conn = sqlite3.connect('settings/database.db')
-    cursor = conn.cursor()
-    # Создайте таблицу, если она не существует
-    cursor.execute("""CREATE TABLE IF NOT EXISTS user_requests (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,
-                                                                username TEXT, timestamp TEXT, file_name TEXT)""")
-    # Вставка записи в таблицу
-    cursor.execute("""INSERT INTO user_requests (user_id, username, timestamp, file_name) 
-                      VALUES (?, ?, ?, ?)""", (user_id, username, timestamp, file_name))
-    # Зафиксируйте изменения в базе данных
-    conn.commit()
-    conn.close()
-
-
-def create_feedback_and_return_to_menu_keyboard():
-    # Создаем клавиатуру с двумя кнопками
-    keyboard = InlineKeyboardMarkup()
-    feedback_button = InlineKeyboardButton(text='⁉️ Если рапорт не найден, нажмите ТУТ', callback_data='feedback')
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # Добавляем кнопки к клавиатуре
-    keyboard.add(feedback_button)
-    keyboard.add(return_to_menu_button)
-    return keyboard
-
-
-@dp.message_handler(commands=['участки'])
-async def list_of_sites(message: types.Message, state: FSMContext):
-    """Вывод списка участков ГУП ДНР 'шахта им. А.Ф. Засядько'"""
-    await state.finish()
-    await state.reset_state()
-    markup = keyboard_go_back() # Клавиатура возврата в начальное меню
-    text_to_send = "\n".join([f"<b>{key}</b> - <i>{value}</i>" for key, value in list_of_plots_2023.items()])
-    await message.answer(text_to_send, reply_markup=markup)
-
-
-def register_raport_handler():
+def register_raport_handler_2024():
     """Регистрируем handlers для работы в выходной день"""
-    dp.register_message_handler(process_callback_month)
-    dp.register_message_handler(list_of_sites)
+    dp.register_message_handler(process_callback_month_2024)
