@@ -6,9 +6,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from keyboards.welcome_keyboard import keyboard_go_back
 from system.global_variables import *
-# from system.global_variables_2022 import *
 from system.system import dp, bot
-import json
 
 
 @dp.callback_query_handler(lambda c: c.data in ['days_off_22'])
