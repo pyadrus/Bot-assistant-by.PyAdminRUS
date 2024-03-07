@@ -28,6 +28,29 @@ async def sample_orders(callback_query: types.CallbackQuery):
     await bot.send_message(callback_query.from_user.id, "Выберите приказ:", reply_markup=keyboard)
 
 
+@dp.callback_query_handler(lambda c: c.data in ['limit_form'])
+async def limit_form(callback_query: types.CallbackQuery, state: FSMContext):
+    """Образец приказа оплата в праздничные дни"""
+    try:
+        user_id = callback_query.from_user.id
+        username = callback_query.from_user.username
+        timestamp = datetime.datetime.now()
+        file_name = 'Бланк лимитки М-8.docx'
+        perform_database_operations(user_id, username, timestamp, file_name)
+        logger.info(f'Пользователь: username {username}, ID {user_id}, запросил файл {file_name} в {timestamp}')
+        # Поиск и отправка файла
+        file_path = f"raports/sample_orders/{file_name}"
+        if os.path.isfile(file_path):
+            with open(file_path, "rb") as file:
+                keyboard_return = keyboard_go_back()
+                await bot.send_document(callback_query.from_user.id, document=file,
+                                        caption=f"Бланк лимитки М-8", reply_markup=keyboard_return)
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+
+    await state.finish()
+
+
 @dp.callback_query_handler(lambda c: c.data in ['payment_on_public_holidays'])
 async def payment_on_public_holidays(callback_query: types.CallbackQuery, state: FSMContext):
     """Образец приказа оплата в праздничные дни"""
@@ -92,3 +115,4 @@ def perform_database_operations(user_id, username, timestamp, file_name):
 def register_sample_orders_handler():
     """Регистрируем handlers для работы в выходной день"""
     dp.register_message_handler(sample_orders)
+    dp.register_message_handler(limit_form)

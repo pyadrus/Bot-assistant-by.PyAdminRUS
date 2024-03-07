@@ -23,9 +23,9 @@ async def days_off_callback_month(callback_query: types.CallbackQuery):
     jul_button = InlineKeyboardButton(text=f'✅ {jul}', callback_data='jul_days_off')
     aug_button = InlineKeyboardButton(text=f'✅ {aug}', callback_data='aug_days_off')
     sep_button = InlineKeyboardButton(text=f'✅ {sep}', callback_data='sep_days_off')
-    oct_button = InlineKeyboardButton(text=f'{oct}', callback_data='oct_days_off')
-    nov_button = InlineKeyboardButton(text=f'{nov}', callback_data='nov_days_off')
-    dec_button = InlineKeyboardButton(text=f'{dec}', callback_data='dec_days_off')
+    oct_button = InlineKeyboardButton(text=f'✅ {oct}', callback_data='oct_days_off')
+    nov_button = InlineKeyboardButton(text=f'✅ {nov}', callback_data='nov_days_off')
+    dec_button = InlineKeyboardButton(text=f'✅ {dec}', callback_data='dec_days_off')
     # Рабочие дни в году
     working_days_per_year = InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2023 году',
                                                  callback_data='working_days_per_year')
