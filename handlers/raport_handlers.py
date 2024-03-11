@@ -11,6 +11,7 @@ from system.global_variables import *
 from system.system import dp, bot
 from loguru import logger
 
+
 @dp.callback_query_handler(lambda c: c.data in ['rap'])
 async def process_callback_month(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта"""
@@ -232,7 +233,8 @@ async def process_district(message: types.Message, state: FSMContext):
             username = message.from_user.username
             timestamp = str(message.date)
             file_name = district + '.xls'
-            logger.info(f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
+            logger.info(
+                f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
             perform_database_operations(user_id, username, timestamp, file_name)
             # Поиск и отправка файла
             file_path = f"raports/rap_2023/{month}_2023/{district}.xls"

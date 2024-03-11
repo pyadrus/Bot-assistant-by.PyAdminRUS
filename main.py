@@ -5,7 +5,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.utils import executor
 
-# from handlers.ai_handlers import register_send_gpt_handler
+from handlers.admin_handlers.admin_handlers import register_handlers_admin
 from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from handlers.days_off_handlers_2024 import register_days_off_callback_month_handler_2024
@@ -20,8 +20,8 @@ from system.system import dp, bot
 from loguru import logger
 
 config = configparser.ConfigParser(empty_lines_in_values=False, allow_no_value=True)
-# Считываем токен бота с файла config.ini
-config.read("settings/config.ini")
+
+config.read("settings/config.ini")  # Считываем токен бота с файла config.ini
 bot_token = config.get('BOT_TOKEN', 'BOT_TOKEN')
 
 logger.add('log/log.log')
@@ -93,11 +93,11 @@ if __name__ == '__main__':
         day_off_handler_22()
         register_table_handler_handler()
         return_to_menu()
-        # register_send_gpt_handler() # GPT ответ
         register_raport_handler()  # Рапорт 2023
         register_days_off_callback_month_handler()  # Выходные дни в 2023 году
         register_days_off_callback_month_handler_2024()  # Выходные дни в 2024 году
         register_sample_orders_handler()  # Образцы приказов
         register_raport_handler_2024()  # Рапорта 2024
+        register_handlers_admin()  # Админ панель
     except Exception as e:
         logger.info(e)
