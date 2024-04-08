@@ -18,7 +18,7 @@ async def checking_availability_of_reports(callback_query: types.CallbackQuery):
     existing_files = os.listdir(folder_path)
 
     # Используем with open для открытия файла с использованием кодека utf-8
-    with open('raports/rap_2024/02_feb_rap_2024/rap_2024.json', 'r', encoding='utf-8') as f:
+    with open('raports/rap_2024/03_mar_rap_2024/rap_2024.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         logger.info(data)
 
