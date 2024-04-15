@@ -12,7 +12,7 @@ from system.system import dp, bot
 async def checking_availability_of_reports(callback_query: types.CallbackQuery):
     """Проверка наличия рапортов"""
     # Путь к папке с файлами
-    folder_path = "raports/rap_2024/02_feb_rap_2024"
+    folder_path = "raports/rap_2024/03_mar_rap_2024"
 
     # Создаем список файлов в папке
     existing_files = os.listdir(folder_path)

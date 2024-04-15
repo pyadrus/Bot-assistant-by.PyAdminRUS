@@ -34,7 +34,12 @@ async def process_callback_month_2024(callback_query: types.CallbackQuery):
     keyboard.row(jul_button, aug_button, sep_button)
     keyboard.row(oct_button, nov_button, dec_button)
     keyboard.row(return_to_menu_button)
-    await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
+    await bot.edit_message_text(
+        chat_id=callback_query.message.chat.id,
+        message_id=callback_query.message.message_id,
+        text="📅 Выберите месяц:",
+        reply_markup=keyboard
+    )
 
 
 @dp.callback_query_handler(lambda c: c.data in ['01_jan_rap_2024'])

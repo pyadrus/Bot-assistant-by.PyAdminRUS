@@ -29,11 +29,11 @@ logger.add('log/log.log')
 
 @dp.message_handler(commands=['start'])
 async def start_command(message: types.Message, state: FSMContext):
-    """Обрабатываем команду /start"""
-    await state.finish()  # Завершаем текущее состояние машины состояний
-    await state.reset_state()  # Сбрасываем все данные машины состояний, до значения по умолчанию
-    main_keyboard = welcome_keyboard()  # Клавиатура приветствие
-    await message.answer(welcome_text, reply_markup=main_keyboard)
+    """Handle the /start command."""
+    await state.finish()  # Finish the current state of the state machine
+    await state.reset_state()  # Reset all data of the state machine to default values
+    main_keyboard = welcome_keyboard()  # Welcome keyboard
+    await bot.send_message(chat_id=message.chat.id, text=welcome_text, reply_markup=main_keyboard)
 
 
 @dp.message_handler(commands=['admin'])
@@ -49,11 +49,13 @@ async def admin_start_command(message: types.Message, state: FSMContext):
 
 @dp.callback_query_handler(lambda c: c.data == "menu")
 async def return_to_menu(callback_query: types.CallbackQuery, state: FSMContext):
-    """Обрабатываем команду /menu или кнопку для возвращения в начальное меню"""
-    await state.finish()  # Завершаем текущее состояние машины состояний
-    await state.reset_state()  # Сбрасываем все данные машины состояний, до значения по умолчанию
-    main_keyboard = welcome_keyboard()  # Клавиатура приветствия
-    await callback_query.message.answer(welcome_text, reply_markup=main_keyboard)
+    """Handle the command /menu or button to return to the main menu."""
+    await state.finish()  # Finish the current state of the state machine
+    await state.reset_state()  # Reset all data of the state machine to default values
+    main_keyboard = welcome_keyboard()  # Welcome keyboard
+    await bot.edit_message_text(chat_id=callback_query.message.chat.id,
+                                message_id=callback_query.message.message_id,
+                                text=welcome_text, reply_markup=main_keyboard)
 
 
 class FeedbackState(StatesGroup):
