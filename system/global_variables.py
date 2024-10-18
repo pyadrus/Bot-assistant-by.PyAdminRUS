@@ -1,4 +1,4 @@
-from aiogram.dispatcher.filters.state import StatesGroup, State
+from aiogram.fsm.state import StatesGroup, State
 
 jan_22 = 'Январь 22'
 feb_22 = 'Февраль 22'
@@ -22,7 +22,7 @@ june = 'Июнь 23'
 jul = 'Июль 23'
 aug = 'Август 23'
 sep = 'Сентябрь 23'
-oct = 'Октябрь 23'
+oct_23 = 'Октябрь 23'
 nov = 'Ноябрь 23'
 dec = 'Декабрь 23'
 
