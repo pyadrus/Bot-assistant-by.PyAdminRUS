@@ -1,13 +1,17 @@
+import asyncio
 import configparser
+import logging
+import sys
 
 from aiogram import types
-from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram.utils import executor
+from aiogram.filters import CommandStart
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import StatesGroup, State
+from loguru import logger
 
 from handlers.admin_handlers.admin_handlers import register_handlers_admin
-from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2022 import day_off_handler_22
+from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2024 import register_days_off_callback_month_handler_2024
 from handlers.raport_handlers import register_raport_handler
 from handlers.raport_handlers_2024 import register_raport_handler_2024
@@ -17,7 +21,6 @@ from keyboards.admin_keyboards.admin_keyboards import welcome_keyboard_admin
 from keyboards.welcome_keyboard import welcome_keyboard
 from messages.user_messages import welcome_text
 from system.system import dp, bot
-from loguru import logger
 
 config = configparser.ConfigParser(empty_lines_in_values=False, allow_no_value=True)
 
@@ -27,7 +30,7 @@ bot_token = config.get('BOT_TOKEN', 'BOT_TOKEN')
 logger.add('log/log.log')
 
 
-@dp.message_handler(commands=['start'])
+@dp.message(CommandStart())
 async def start_command(message: types.Message, state: FSMContext):
     """Handle the /start command."""
     await state.finish()  # Finish the current state of the state machine
@@ -89,12 +92,12 @@ async def feedback_message_handler(message: types.Message, state: FSMContext):
     await state.finish()
 
 
-if __name__ == '__main__':
+async def main() -> None:
     try:
-        executor.start_polling(dp, skip_updates=True)
+        await dp.start_polling(bot)
         day_off_handler_22()
         register_table_handler_handler()
-        return_to_menu()
+        await return_to_menu()
         register_raport_handler()  # Рапорт 2023
         register_days_off_callback_month_handler()  # Выходные дни в 2023 году
         register_days_off_callback_month_handler_2024()  # Выходные дни в 2024 году
@@ -103,3 +106,8 @@ if __name__ == '__main__':
         register_handlers_admin()  # Админ панель
     except Exception as e:
         logger.info(e)
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+    asyncio.run(main())
