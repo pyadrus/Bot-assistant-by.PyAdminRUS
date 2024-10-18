@@ -1,12 +1,12 @@
 import datetime
 import os
-import sqlite3
 
 from aiogram import types, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from loguru import logger
 
+from database.database import perform_database_operations
 from keyboards.welcome_keyboard import keyboard_go_back
 from system.system import dp, bot, router
 
@@ -117,19 +117,7 @@ async def day_off_for_public_holiday(callback_query: types.CallbackQuery, state:
     await state.clear()
 
 
-def perform_database_operations(user_id, username, timestamp, file_name):
-    """Определение функции для операций с базой данных"""
-    conn = sqlite3.connect('settings/database.db')
-    cursor = conn.cursor()
-    # Создайте таблицу, если она не существует
-    cursor.execute("""CREATE TABLE IF NOT EXISTS user_requests (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,
-                                                                username TEXT, timestamp TEXT, file_name TEXT)""")
-    # Вставка записи в таблицу
-    cursor.execute("""INSERT INTO user_requests (user_id, username, timestamp, file_name) 
-                      VALUES (?, ?, ?, ?)""", (user_id, username, timestamp, file_name))
-    # Зафиксируйте изменения в базе данных
-    conn.commit()
-    conn.close()
+
 
 
 def register_sample_orders_handler():

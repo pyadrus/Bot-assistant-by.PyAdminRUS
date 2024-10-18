@@ -2,41 +2,16 @@ import math
 
 from aiogram import types, F
 from aiogram.fsm.context import FSMContext
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from keyboards.welcome_keyboard import keyboard_go_back
-from system.global_variables import jan, feb, mar, apr, may, june, jul, aug, sep, nov, dec, oct_23, Form
+from keyboards.welcome_keyboard import keyboard_go_back, work_on_days_off_2023
+from system.global_variables import jan, feb, mar, apr, may, june, jul, aug, sep, nov, dec, Form
 from system.system import dp, bot, router
 
 
 @router.callback_query(F.data == "days_off")
 async def days_off_callback_month(callback_query: types.CallbackQuery):
     """Плановые и выходные дни в Мае 2023"""
-    keyboard = InlineKeyboardMarkup()
-
-    jan_button = InlineKeyboardButton(text=f'✅ {jan}', callback_data='jan_days_off')
-    feb_button = InlineKeyboardButton(text=f'✅ {feb}', callback_data='feb_days_off')
-    mar_button = InlineKeyboardButton(text=f'✅ {mar}', callback_data='mar_days_off')
-    apr_button = InlineKeyboardButton(text=f'✅ {apr}', callback_data='apr_days_off')
-    may_button = InlineKeyboardButton(text=f'✅ {may}', callback_data='may_days_off')
-    jun_button = InlineKeyboardButton(text=f'✅ {june}', callback_data='june_days_off')
-    jul_button = InlineKeyboardButton(text=f'✅ {jul}', callback_data='jul_days_off')
-    aug_button = InlineKeyboardButton(text=f'✅ {aug}', callback_data='aug_days_off')
-    sep_button = InlineKeyboardButton(text=f'✅ {sep}', callback_data='sep_days_off')
-    oct_button = InlineKeyboardButton(text=f'✅ {oct_23}', callback_data='oct_days_off')
-    nov_button = InlineKeyboardButton(text=f'✅ {nov}', callback_data='nov_days_off')
-    dec_button = InlineKeyboardButton(text=f'✅ {dec}', callback_data='dec_days_off')
-    # Рабочие дни в году
-    working_days_per_year = InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2023 году',
-                                                 callback_data='working_days_per_year')
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    keyboard.row(jan_button, feb_button, mar_button)
-    keyboard.row(apr_button, may_button, jun_button)
-    keyboard.row(jul_button, aug_button, sep_button)
-    keyboard.row(oct_button, nov_button, dec_button)
-    keyboard.row(working_days_per_year)
-    keyboard.row(return_to_menu_button)
-    await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
+    await bot.send_message(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=work_on_days_off_2023())
 
 @router.callback_query(F.data == "working_days_per_year")
 async def working_days_per_year_process_callback(callback_query: types.CallbackQuery, state: FSMContext):

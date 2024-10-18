@@ -1,14 +1,16 @@
 import os
-import sqlite3
 
 from aiogram import F
 from aiogram import types
-from aiogram.fsm.context import FSMContext
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.types import InputFile
-from loguru import logger
 from aiogram.filters import Command
-from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_go_back, keyboard_for_report_2023
+from aiogram.fsm.context import FSMContext
+from aiogram.types import FSInputFile
+from aiogram.types import Message
+from loguru import logger
+
+from database.database import perform_database_operations
+from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_go_back, keyboard_for_report_2023, \
+    create_feedback_and_return_to_menu_keyboard
 from system.global_variables import Form
 from system.system import dp, bot, router
 
@@ -208,65 +210,45 @@ report_no_text_found = ("🚫 <b>Файл не найден или рапорт 
 
 
 @router.message(Form.district)
-async def process_district(message: types.Message, state: FSMContext):
-    async with state.proxy() as data:
-        month = data['month']
-        logger.info(f'Вопрос рапорта по месяцу {month}')
-        district = message.text
-        try:
-            district_name = list_of_plots_2023[int(district)]
-            print(district_name)
-            # Запись в базу данных
-            user_id = message.from_user.id
-            username = message.from_user.username
-            timestamp = str(message.date)
-            file_name = district + '.xls'
-            logger.info(
-                f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
-            perform_database_operations(user_id, username, timestamp, file_name)
-            # Поиск и отправка файла
-            file_path = f"raports/rap_2023/{month}_2023/{district}.xls"
-            if os.path.isfile(file_path):
-                with open(file_path, "rb") as file:
-                    keyboard_return = return_start_menu_keyboard()
-                    await message.answer_document(InputFile(file),
-                                                  caption=f"Рапорт участка: {district_name}",
-                                                  reply_markup=keyboard_return)
-            else:
-                # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
-                keyboard = create_feedback_and_return_to_menu_keyboard()
-                await message.answer(report_no_text_found, reply_markup=keyboard)
-        except KeyError:
+async def process_district(message: Message, state: FSMContext):
+    data = await state.get_data()  # Получение данных из состояния
+    month = data.get('month')  # Получаем месяц
+    logger.info(f'Вопрос рапорта по месяцу {month}')
+    district = message.text
+    try:
+        district_name = list_of_plots_2023[int(district)]
+        logger.info(district_name)
+        # Запись в базу данных
+        user_id = message.from_user.id
+        username = message.from_user.username
+        timestamp = str(message.date)
+        file_name = district + '.xls'
+        logger.info(f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
+        perform_database_operations(user_id, username, timestamp, file_name)
+        # Поиск и отправка файла
+        file_path = f"raports/rap_2023/{month}_2023/{district}.xls"
+        if os.path.isfile(file_path):
+
+            keyboard_return = return_start_menu_keyboard()
+
+            file = FSInputFile(file_path)
+
+            await bot.send_document(message.from_user.id, document=file, caption=f"Рапорт участка: {district_name}",
+                                    parse_mode="HTML",
+                                    reply_markup=keyboard_return)  # Отправка файла пользователю
+
+
+        else:
             # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
             keyboard = create_feedback_and_return_to_menu_keyboard()
             await message.answer(report_no_text_found, reply_markup=keyboard)
-        await state.clear()
+    except KeyError:
+        # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
+        keyboard = create_feedback_and_return_to_menu_keyboard()
+        await message.answer(report_no_text_found, reply_markup=keyboard)
+    await state.clear()
 
 
-# Определение функции для операций с базой данных
-def perform_database_operations(user_id, username, timestamp, file_name):
-    conn = sqlite3.connect('settings/database.db')
-    cursor = conn.cursor()
-    # Создайте таблицу, если она не существует
-    cursor.execute("""CREATE TABLE IF NOT EXISTS user_requests (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,
-                                                                username TEXT, timestamp TEXT, file_name TEXT)""")
-    # Вставка записи в таблицу
-    cursor.execute("""INSERT INTO user_requests (user_id, username, timestamp, file_name) 
-                      VALUES (?, ?, ?, ?)""", (user_id, username, timestamp, file_name))
-    # Зафиксируйте изменения в базе данных
-    conn.commit()
-    conn.close()
-
-
-def create_feedback_and_return_to_menu_keyboard():
-    # Создаем клавиатуру с двумя кнопками
-    keyboard = InlineKeyboardMarkup()
-    feedback_button = InlineKeyboardButton(text='⁉️ Если рапорт не найден, нажмите ТУТ', callback_data='feedback')
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    # Добавляем кнопки к клавиатуре
-    keyboard.add(feedback_button)
-    keyboard.add(return_to_menu_button)
-    return keyboard
 
 
 @router.message(Command("участки"))

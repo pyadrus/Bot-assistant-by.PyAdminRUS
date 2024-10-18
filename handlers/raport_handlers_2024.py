@@ -1,12 +1,15 @@
 import os
 
-from aiogram import types, F
+from aiogram import F
+from aiogram import types
 from aiogram.fsm.context import FSMContext
-from aiogram.types import InputFile
+from aiogram.types import FSInputFile
+from aiogram.types import Message
 from loguru import logger
 
-from handlers.raport_handlers import perform_database_operations, create_feedback_and_return_to_menu_keyboard
-from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_for_report_2024
+from handlers.raport_handlers import perform_database_operations
+from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_for_report_2024, \
+    create_feedback_and_return_to_menu_keyboard
 from system.global_variables import Form_2024
 from system.system import dp, bot, router
 
@@ -27,8 +30,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "02_feb_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -36,8 +39,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "03_mar_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -45,8 +48,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "04_apr_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -54,8 +57,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "05_may_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -63,8 +66,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "06_jun_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -72,8 +75,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "07_jul_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -81,8 +84,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "08_aug_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -90,8 +93,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "09_sep_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -99,8 +102,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "10_oct_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -108,8 +111,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "11_nov_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -117,8 +120,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 @router.callback_query(F.data == "12_dec_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -126,8 +129,8 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     month = callback_query.data
     logger.info(f'Запрос рапорта по месяцу {month}')
     await state.update_data(month=month)
-    await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
+    await state.set_state(Form_2024.district_2024)
 
 
 list_of_plots_2024 = {110100: "Руководство",
@@ -206,64 +209,68 @@ report_no_text_found = ("🚫 <b>Файл не найден или рапорт 
                         "Нажмите <b>'↩️  Вернуться в начальное меню'</b>, чтобы повторить запрос.")
 
 @router.message(Form_2024.district_2024)
-async def process_district_2024(message: types.Message, state: FSMContext):
-    async with state.proxy() as data:
-        month = data['month']
-        logger.info(f'Вопрос рапорта по месяцу {month}')
-        district = message.text
-        try:
-            district_name = list_of_plots_2024[int(district)]
-            # Запись в базу данных
-            user_id = message.from_user.id
-            username = message.from_user.username
-            timestamp = str(message.date)
-            file_name = district + '.xls'
-            logger.info(
-                f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
-            perform_database_operations(user_id, username, timestamp, file_name)
-            # Поиск и отправка файла
-            file_path = f"raports/rap_2024/{month}/{district}.xls"
-            if os.path.isfile(file_path):
-                with open(file_path, "rb") as file:
-                    keyboard_return = return_start_menu_keyboard()
-                    if month == "01_jan_rap_2024":
-                        raport_month: str = "Январь 2024"
-                    if month == "02_feb_rap_2024":
-                        raport_month: str = "Февраль 2024"
-                    if month == "03_mar_rap_2024":
-                        raport_month: str = "Март 2024"
-                    if month == "04_apr_rap_2024":
-                        raport_month: str = "Апрель 2024"
-                    if month == "05_may_rap_2024":
-                        raport_month: str = "Май 2024"
-                    if month == "06_jun_rap_2024":
-                        raport_month: str = "Июнь 2024"
-                    if month == "07_jul_rap_2024":
-                        raport_month: str = "Июль 2024"
-                    if month == "08_aug_rap_2024":
-                        raport_month: str = "Август 2024"
-                    if month == "09_sep_rap_2024":
-                        raport_month: str = "Сентябрь 2024"
-                    if month == "10_oct_rap_2024":
-                        raport_month: str = "Октябрь 2024"
-                    if month == "11_nov_rap_2024":
-                        raport_month: str = "Ноябрь 2024"
-                    if month == "12_dec_rap_2024":
-                        raport_month: str = "Декабрь 2024"
-                    await message.answer_document(InputFile(file),
-                                                  caption=(f"<b>📅 {raport_month}\n\n"
-                                                           f"Рапорт участка:</b> {district_name}"),
+async def process_district_2024(message: Message, state: FSMContext):
+    data = await state.get_data()  # Получение данных из состояния
+    month = data.get('month')  # Получаем месяц
+    logger.info(f'Вопрос рапорта по месяцу {month}')
+    district = message.text
 
-                                                  reply_markup=keyboard_return)
-            else:
-                # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
-                keyboard = create_feedback_and_return_to_menu_keyboard()
-                await message.answer(report_no_text_found, reply_markup=keyboard)
-        except KeyError:
+    try:
+        district_name = list_of_plots_2024[int(district)]
+        # Запись в базу данных
+        user_id = message.from_user.id
+        username = message.from_user.username
+        timestamp = str(message.date)
+        file_name = district + '.xls'
+        logger.info(f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
+        perform_database_operations(user_id, username, timestamp, file_name)
+        # Поиск и отправка файла
+        file_path = f"raports/rap_2024/{month}/{district}.xls"
+        if os.path.isfile(file_path):
+
+            keyboard_return = return_start_menu_keyboard()
+            if month == "01_jan_rap_2024":
+                raport_month: str = "Январь 2024"
+            if month == "02_feb_rap_2024":
+                raport_month: str = "Февраль 2024"
+            if month == "03_mar_rap_2024":
+                raport_month: str = "Март 2024"
+            if month == "04_apr_rap_2024":
+                raport_month: str = "Апрель 2024"
+            if month == "05_may_rap_2024":
+                raport_month: str = "Май 2024"
+            if month == "06_jun_rap_2024":
+                raport_month: str = "Июнь 2024"
+            if month == "07_jul_rap_2024":
+                raport_month: str = "Июль 2024"
+            if month == "08_aug_rap_2024":
+                raport_month: str = "Август 2024"
+            if month == "09_sep_rap_2024":
+                raport_month: str = "Сентябрь 2024"
+            if month == "10_oct_rap_2024":
+                raport_month: str = "Октябрь 2024"
+            if month == "11_nov_rap_2024":
+                raport_month: str = "Ноябрь 2024"
+            if month == "12_dec_rap_2024":
+                raport_month: str = "Декабрь 2024"
+
+            file = FSInputFile(file_path)
+
+            await bot.send_document(message.from_user.id,
+                                    document=file,
+                                    caption=(f"<b>📅 {raport_month}\n\n"
+                                                   f"Рапорт участка:</b> {district_name}"),
+                                    parse_mode="HTML",
+                                    reply_markup=keyboard_return)  # Отправка файла пользователю
+        else:
             # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
             keyboard = create_feedback_and_return_to_menu_keyboard()
             await message.answer(report_no_text_found, reply_markup=keyboard)
-        await state.finish()
+    except KeyError:
+        # Создаем клавиатуру с одной кнопкой "Отправить сообщение"
+        keyboard = create_feedback_and_return_to_menu_keyboard()
+        await message.answer(report_no_text_found, reply_markup=keyboard)
+    await state.clear()
 
 
 def register_raport_handler_2024():

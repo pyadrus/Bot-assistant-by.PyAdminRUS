@@ -99,17 +99,15 @@ def return_start_menu_keyboard():
     """Возврат в начальное меню"""
     try:
         # Создаем клавиатуру с двумя кнопками
-        keyboard_return = InlineKeyboardMarkup()
-        raport_button_2023 = InlineKeyboardButton(text='🔨Рапорта 2023', callback_data='rap')
-        raport_button_2024 = InlineKeyboardButton(text='🔨Рапорта 2024', callback_data='rap_2024')
-        return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-
-        # Добавляем кнопки к клавиатуре
-        keyboard_return.add(return_to_menu_button)
-        keyboard_return.add(raport_button_2023)
-        keyboard_return.add(raport_button_2024)
-
+        rows = [
+            [InlineKeyboardButton(text='🔨Рапорта 2023', callback_data='rap')],
+            [InlineKeyboardButton(text='🔨Рапорта 2024', callback_data='rap_2024')],
+             [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+        ]
+        keyboard_return = InlineKeyboardMarkup(inline_keyboard=rows)
         return keyboard_return
+
+
     except Exception as e:
         logger.exception(e)
 
@@ -159,6 +157,47 @@ def work_on_days_off_2022():
     main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
     return main_keyboard
 
+
+def work_on_days_off_2023():
+    """Работа в выходной день 2023"""
+
+    rows = [
+        [InlineKeyboardButton(text=f'✅ {jan}', callback_data='jan_days_off'),
+         InlineKeyboardButton(text=f'✅ {feb}', callback_data='feb_days_off'),
+         InlineKeyboardButton(text=f'✅ {mar}', callback_data='mar_days_off')],
+
+        [InlineKeyboardButton(text=f'✅ {apr}', callback_data='apr_days_off'),
+         InlineKeyboardButton(text=f'✅ {may}', callback_data='may_days_off'),
+         InlineKeyboardButton(text=f'✅ {june}', callback_data='june_days_off')],
+
+        [InlineKeyboardButton(text=f'✅ {jul}', callback_data='jul_days_off'),
+         InlineKeyboardButton(text=f'✅ {aug}', callback_data='aug_days_off'),
+         InlineKeyboardButton(text=f'✅ {sep}', callback_data='sep_days_off')],
+
+        [InlineKeyboardButton(text=f'✅ {oct_23}', callback_data='oct_days_off'),
+         InlineKeyboardButton(text=f'✅ {nov}', callback_data='nov_days_off'),
+         InlineKeyboardButton(text=f'✅ {dec}', callback_data='dec_days_off')],
+
+        [InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2023 году',
+                                                 callback_data='working_days_per_year')],
+
+        [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+    ]
+
+    main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
+    return main_keyboard
+
+def create_feedback_and_return_to_menu_keyboard():
+    # Создаем клавиатуру с двумя кнопками
+
+    # Создаем клавиатуру с двумя кнопками
+    rows = [
+        [InlineKeyboardButton(text='⁉️ Если рапорт не найден, нажмите ТУТ', callback_data='feedback')],
+        [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+    ]
+    keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
+    return keyboard
+
 def keyboard_go_back() -> InlineKeyboardMarkup:
     """Клавиатура '↩️ Вернуться в начальное меню'"""
     try:
@@ -178,3 +217,4 @@ if __name__ == "__main__":
     keyboard_for_report_2024()
     output_sheet_by_area()
     work_on_days_off_2022()
+    work_on_days_off_2023()
