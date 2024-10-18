@@ -1,7 +1,7 @@
 import os
 
-from aiogram import types
-from aiogram.dispatcher import FSMContext
+from aiogram import types, F
+from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import InputFile
 from loguru import logger
@@ -9,10 +9,10 @@ from loguru import logger
 from handlers.raport_handlers import perform_database_operations, create_feedback_and_return_to_menu_keyboard
 from keyboards.welcome_keyboard import return_start_menu_keyboard
 from system.global_variables import *
-from system.system import dp, bot
+from system.system import dp, bot, router
 
 
-@dp.callback_query_handler(lambda c: c.data in ['rap_2024'])
+@router.callback_query(F.data == "rap_2024")
 async def process_callback_month_2024(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта"""
     keyboard = InlineKeyboardMarkup()
@@ -37,8 +37,7 @@ async def process_callback_month_2024(callback_query: types.CallbackQuery):
         reply_markup=keyboard
     )
 
-
-@dp.callback_query_handler(lambda c: c.data in ['01_jan_rap_2024'])
+@router.callback_query(F.data == "01_jan_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -47,8 +46,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['02_feb_rap_2024'])
+@router.callback_query(F.data == "02_feb_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -57,8 +55,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['03_mar_rap_2024'])
+@router.callback_query(F.data == "03_mar_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -67,8 +64,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['04_apr_rap_2024'])
+@router.callback_query(F.data == "04_apr_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -77,8 +73,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['05_may_rap_2024'])
+@router.callback_query(F.data == "05_may_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -87,8 +82,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['06_jun_rap_2024'])
+@router.callback_query(F.data == "06_jun_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -97,8 +91,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['07_jul_rap_2024'])
+@router.callback_query(F.data == "07_jul_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -107,8 +100,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['08_aug_rap_2024'])
+@router.callback_query(F.data == "08_aug_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -117,8 +109,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['09_sep_rap_2024'])
+@router.callback_query(F.data == "09_sep_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -127,8 +118,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['10_oct_rap_2024'])
+@router.callback_query(F.data == "10_oct_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -137,8 +127,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['11_nov_rap_2024'])
+@router.callback_query(F.data == "11_nov_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -147,8 +136,7 @@ async def process_callback_monthh_2024(callback_query: types.CallbackQuery, stat
     await Form_2024.district_2024.set()
     await bot.send_message(callback_query.from_user.id, "Введите код участка:")
 
-
-@dp.callback_query_handler(lambda c: c.data in ['12_dec_rap_2024'])
+@router.callback_query(F.data == "12_dec_rap_2024")
 async def process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Рапорта Март 2023"""
     month = callback_query.data
@@ -233,8 +221,7 @@ report_no_text_found = ("🚫 <b>Файл не найден или рапорт 
                         "Проверьте правильность введенного кода участка.\n\n"
                         "Нажмите <b>'↩️  Вернуться в начальное меню'</b>, чтобы повторить запрос.")
 
-
-@dp.message_handler(state=Form_2024.district_2024)
+@router.message(Form_2024.district_2024)
 async def process_district_2024(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         month = data['month']

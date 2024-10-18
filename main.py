@@ -3,12 +3,12 @@ import configparser
 import logging
 import sys
 
-from aiogram import types
+from aiogram import types, F
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from loguru import logger
-
+from aiogram.filters import Command
 from handlers.admin_handlers.admin_handlers import register_handlers_admin
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
@@ -20,7 +20,7 @@ from handlers.table_handlers import register_table_handler_handler
 from keyboards.admin_keyboards.admin_keyboards import welcome_keyboard_admin
 from keyboards.welcome_keyboard import welcome_keyboard
 from messages.user_messages import welcome_text
-from system.system import dp, bot
+from system.system import dp, bot, router
 
 config = configparser.ConfigParser(empty_lines_in_values=False, allow_no_value=True)
 
@@ -33,28 +33,23 @@ logger.add('log/log.log')
 @dp.message(CommandStart())
 async def start_command(message: types.Message, state: FSMContext):
     """Handle the /start command."""
-    await state.finish()  # Finish the current state of the state machine
-    await state.reset_state()  # Reset all data of the state machine to default values
+    await state.clear()
     main_keyboard = welcome_keyboard()  # Welcome keyboard
     await bot.send_message(chat_id=message.chat.id, text=welcome_text, reply_markup=main_keyboard)
 
-
-@dp.message_handler(commands=['admin'])
+@router.message(Command("admin"))
 async def admin_start_command(message: types.Message, state: FSMContext):
     """Админ панель"""
-    await state.finish()
-    await state.reset_state()
+    await state.clear()
     main_keyboard = welcome_keyboard_admin()
     admin_welcome_text = ('Админ панель\n'
                           'Сделай свой выбор')
     await message.answer(admin_welcome_text, reply_markup=main_keyboard)
 
-
-@dp.callback_query_handler(lambda c: c.data == "menu")
+@router.callback_query(F.data == "menu")
 async def return_to_menu(callback_query: types.CallbackQuery, state: FSMContext):
-    """Handle the command /menu or button to return to the main menu."""
-    await state.finish()  # Finish the current state of the state machine
-    await state.reset_state()  # Reset all data of the state machine to default values
+    """Обработайте команду /меню или кнопку, чтобы вернуться в главное меню."""
+    await state.clear()
     main_keyboard = welcome_keyboard()  # Welcome keyboard
     await bot.edit_message_text(chat_id=callback_query.message.chat.id,
                                 message_id=callback_query.message.message_id,
@@ -65,17 +60,15 @@ class FeedbackState(StatesGroup):
     """Для обратной связи"""
     WAITING_FOR_FEEDBACK = State()
 
-
-@dp.callback_query_handler(lambda c: c.data in ['feedback'])
+@router.callback_query(F.data == "feedback")
 async def feedback_command_handler(callback_query: types.CallbackQuery, state: FSMContext):
     """Обратная связь с админом"""
     instructions = "Введите табельный номер и ваш вопрос ❓ Сообщения без табельного номера не будет обработано ❗️"
     await bot.send_message(chat_id=callback_query.from_user.id, text=instructions)
-    await FeedbackState.WAITING_FOR_FEEDBACK.set()
     await state.update_data(user_id=callback_query.from_user.id, username=callback_query.from_user.username)
+    await state.set_state(FeedbackState.WAITING_FOR_FEEDBACK)
 
-
-@dp.message_handler(state=FeedbackState.WAITING_FOR_FEEDBACK, content_types=types.ContentType.TEXT)
+@router.message(FeedbackState.WAITING_FOR_FEEDBACK)
 async def feedback_message_handler(message: types.Message, state: FSMContext):
     """Обработчик сообщений обратной связи"""
     user_feedback = message.text
@@ -89,7 +82,7 @@ async def feedback_message_handler(message: types.Message, state: FSMContext):
     confirmation_message = "Ваше сообщение отправлено!"  # отправить подтверждение пользователю
     await bot.send_message(chat_id=user_id, text=confirmation_message)
     # сбросить состояние обратно в None
-    await state.finish()
+    await state.clear()
 
 
 async def main() -> None:

@@ -2,18 +2,17 @@ import datetime
 import os
 import sqlite3
 
-from aiogram import types
-from aiogram.dispatcher import FSMContext
+from aiogram import types, F
+from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from loguru import logger
 
 from keyboards.welcome_keyboard import keyboard_go_back
-from system.system import dp, bot
+from system.system import dp, bot, router
 
 logger.add('log/log.log')
 
-
-@dp.callback_query_handler(lambda c: c.data in ['sample_orders'])
+@router.callback_query(F.data == "sample_orders")
 async def sample_orders(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта"""
     keyboard = InlineKeyboardMarkup()
@@ -27,8 +26,7 @@ async def sample_orders(callback_query: types.CallbackQuery):
     keyboard.row(return_to_menu_button)
     await bot.send_message(callback_query.from_user.id, "Выберите приказ:", reply_markup=keyboard)
 
-
-@dp.callback_query_handler(lambda c: c.data in ['contract_form'])
+@router.callback_query(F.data == "contract_form")
 async def contract_form(callback_query: types.CallbackQuery, state: FSMContext):
     """Образец приказа оплата в праздничные дни"""
     try:
@@ -50,10 +48,9 @@ async def contract_form(callback_query: types.CallbackQuery, state: FSMContext):
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
-    await state.finish()
+    await state.clear()
 
-
-@dp.callback_query_handler(lambda c: c.data in ['limit_form'])
+@router.callback_query(F.data == "limit_form")
 async def limit_form(callback_query: types.CallbackQuery, state: FSMContext):
     """Образец приказа оплата в праздничные дни"""
     try:
@@ -73,10 +70,9 @@ async def limit_form(callback_query: types.CallbackQuery, state: FSMContext):
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
-    await state.finish()
+    await state.clear()
 
-
-@dp.callback_query_handler(lambda c: c.data in ['payment_on_public_holidays'])
+@router.callback_query(F.data == "payment_on_public_holidays")
 async def payment_on_public_holidays(callback_query: types.CallbackQuery, state: FSMContext):
     """Образец приказа оплата в праздничные дни"""
     try:
@@ -96,10 +92,9 @@ async def payment_on_public_holidays(callback_query: types.CallbackQuery, state:
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
-    await state.finish()
+    await state.clear()
 
-
-@dp.callback_query_handler(lambda c: c.data in ['day_off_for_public_holiday'])
+@router.callback_query(F.data == "day_off_for_public_holiday")
 async def day_off_for_public_holiday(callback_query: types.CallbackQuery, state: FSMContext):
     """Образец приказа выходной за праздничный день"""
     try:
@@ -119,7 +114,7 @@ async def day_off_for_public_holiday(callback_query: types.CallbackQuery, state:
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
-    await state.finish()
+    await state.clear()
 
 
 def perform_database_operations(user_id, username, timestamp, file_name):

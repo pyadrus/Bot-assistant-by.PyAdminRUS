@@ -7,7 +7,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import InputFile
 from loguru import logger
-
+from aiogram.filters import Command
 from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_go_back
 from system.global_variables import *
 from system.system import dp, bot, router
@@ -273,7 +273,7 @@ def create_feedback_and_return_to_menu_keyboard():
     return keyboard
 
 
-@dp.message_handler(commands=['участки'])
+@router.message(Command("участки"))
 async def list_of_sites(message: types.Message, state: FSMContext):
     """Вывод списка участков ГУП ДНР 'шахта им. А.Ф. Засядько'"""
     await state.clear()

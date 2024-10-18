@@ -1,10 +1,10 @@
-from aiogram import types
+from aiogram import types, F
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from system.system import dp, bot
+from system.system import dp, bot, router
 
 
-@dp.callback_query_handler(lambda c: c.data in ['table'])
+@router.callback_query(F.data == "table")
 async def table_handler(callback_query: types.CallbackQuery):
     """Плановые и выходные дни в 2022 году"""
     keyboard = InlineKeyboardMarkup()
