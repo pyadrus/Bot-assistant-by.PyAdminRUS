@@ -2,7 +2,8 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from loguru import logger
 
 from system.global_variables import jan, mar, apr, may, june, jul, aug, sep, oct_23, nov, dec, feb, jan_2024, feb_2024, \
-    mar_2024, apr_2024, may_2024, june_2024, jul_2024, aug_2024, sep_2024, oct_2024, nov_2024, dec_2024
+    mar_2024, apr_2024, may_2024, june_2024, jul_2024, aug_2024, sep_2024, oct_2024, nov_2024, dec_2024, jan_22, feb_22, \
+    mar_22, apr_22, may_22, june_22, jul_22, aug_22, sep_22, oct_22, nov_22, dec_22
 
 
 def welcome_keyboard():
@@ -113,6 +114,51 @@ def return_start_menu_keyboard():
         logger.exception(e)
 
 
+def output_sheet_by_area():
+    """Табеля по участкам"""
+    try:
+        rows = [
+            [InlineKeyboardButton(text=f'2021', callback_data='year_21'),
+             InlineKeyboardButton(text=f'2022', callback_data='year_22'),
+             InlineKeyboardButton(text=f'2023', callback_data='year_23'),
+             InlineKeyboardButton(text=f'2024', callback_data='year_24')],
+
+            [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+        ]
+        main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
+        return main_keyboard
+    except Exception as e:
+        logger.exception(e)
+
+
+def work_on_days_off_2022():
+    """Работа в выходной день 2022"""
+
+    rows = [
+        [InlineKeyboardButton(text=f'✅ {jan_22}', callback_data='jan_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {feb_22}', callback_data='feb_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {mar_22}', callback_data='mar_days_off_2022')],
+
+        [InlineKeyboardButton(text=f'✅ {apr_22}', callback_data='apr_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {may_22}', callback_data='may_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {june_22}', callback_data='june_days_off_2022')],
+
+        [InlineKeyboardButton(text=f'✅ {jul_22}', callback_data='jul_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {aug_22}', callback_data='aug_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {sep_22}', callback_data='sep_days_off_2022')],
+
+        [InlineKeyboardButton(text=f'✅ {oct_22}', callback_data='oct_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {nov_22}', callback_data='nov_days_off_2022'),
+         InlineKeyboardButton(text=f'✅ {dec_22}', callback_data='dec_days_off_2022')],
+
+        [InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2022 году', callback_data='working_days_per_year_2022')],
+
+        [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+    ]
+
+    main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
+    return main_keyboard
+
 def keyboard_go_back() -> InlineKeyboardMarkup:
     """Клавиатура '↩️ Вернуться в начальное меню'"""
     try:
@@ -130,3 +176,5 @@ if __name__ == "__main__":
     keyboard_go_back()
     keyboard_for_report_2023()
     keyboard_for_report_2024()
+    output_sheet_by_area()
+    work_on_days_off_2022()
