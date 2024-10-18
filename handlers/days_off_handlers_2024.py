@@ -1,15 +1,15 @@
+import codecs
+import json
 import math
 
 from aiogram import types, F
 from aiogram.fsm.context import FSMContext
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from loguru import logger
 
 from keyboards.welcome_keyboard import keyboard_go_back, work_on_days_off_2024
 from system.global_variables import *
 from system.system import dp, bot, router
-import json
-from loguru import logger
-import codecs
+
 
 @router.callback_query(F.data == "days_off_24")
 async def days_off_callback_month_2024(callback_query: types.CallbackQuery):

@@ -4,7 +4,7 @@ from aiogram import types, F
 from aiogram.fsm.context import FSMContext
 
 from keyboards.welcome_keyboard import keyboard_go_back, work_on_days_off_2023
-from system.global_variables import jan, feb, mar, apr, may, june, jul, aug, sep, nov, dec, Form
+from system.global_variables import jan, feb, mar, apr, may, june, jul, aug, sep, nov, dec
 from system.system import dp, bot, router
 
 
