@@ -49,11 +49,14 @@ async def admin_start_command(message: types.Message, state: FSMContext):
 @router.callback_query(F.data == "menu")
 async def return_to_menu(callback_query: types.CallbackQuery, state: FSMContext):
     """Обработайте команду /меню или кнопку, чтобы вернуться в главное меню."""
-    await state.clear()
-    main_keyboard = welcome_keyboard()  # Welcome keyboard
-    await bot.edit_message_text(chat_id=callback_query.message.chat.id,
-                                message_id=callback_query.message.message_id,
-                                text=welcome_text, reply_markup=main_keyboard)
+    try:
+
+        await state.clear()
+        main_keyboard = welcome_keyboard()  # Welcome keyboard
+        await bot.send_message(callback_query.from_user.id, text=welcome_text, reply_markup=main_keyboard)
+
+    except Exception as e:
+        logger.exception(e)
 
 
 class FeedbackState(StatesGroup):

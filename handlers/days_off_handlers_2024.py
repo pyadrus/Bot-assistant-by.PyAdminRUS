@@ -4,7 +4,7 @@ from aiogram import types, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from keyboards.welcome_keyboard import keyboard_go_back
+from keyboards.welcome_keyboard import keyboard_go_back, work_on_days_off_2024
 from system.global_variables import *
 from system.system import dp, bot, router
 import json
@@ -19,31 +19,8 @@ async def days_off_callback_month_2024(callback_query: types.CallbackQuery):
             data = json.load(f)
             logger.info(data)
 
-        keyboard = InlineKeyboardMarkup()
+        keyboard = work_on_days_off_2024(data)
 
-        jan_button = InlineKeyboardButton(text=f' {data["jan_2024"][0]}', callback_data='jan_days_off_2024')
-        feb_button = InlineKeyboardButton(text=f' {data["feb_2024"][0]}', callback_data='feb_days_off_2024')
-        mar_button = InlineKeyboardButton(text=f' {data["mar_2024"][0]}', callback_data='mar_days_off_2024')
-        apr_button = InlineKeyboardButton(text=f' {data["apr_2024"][0]}', callback_data='apr_days_off_2024')
-        may_button = InlineKeyboardButton(text=f' {data["may_2024"][0]}', callback_data='may_days_off_2024')
-        jun_button = InlineKeyboardButton(text=f' {data["june_2024"][0]}', callback_data='june_days_off_2024')
-        jul_button = InlineKeyboardButton(text=f' {data["jul_2024"][0]}', callback_data='jul_days_off_2024')
-        aug_button = InlineKeyboardButton(text=f' {data["aug_2024"][0]}', callback_data='aug_days_off_2024')
-        sep_button = InlineKeyboardButton(text=f' {data["sep_2024"][0]}', callback_data='sep_days_off_2024')
-        oct_button = InlineKeyboardButton(text=f'{data["oct_2024"][0]}', callback_data='oct_days_off_2024')
-        nov_button = InlineKeyboardButton(text=f'{data["nov_2024"][0]}', callback_data='nov_days_off_2024')
-        dec_button = InlineKeyboardButton(text=f'{data["dec_2024"][0]}', callback_data='dec_days_off_2024')
-        # Рабочие дни в году
-        working_days_per_year = InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2024 году',
-                                                     callback_data='working_days_per_year_2024')
-        return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-        keyboard.row(jan_button, feb_button, mar_button)
-        keyboard.row(apr_button, may_button, jun_button)
-        keyboard.row(jul_button, aug_button, sep_button)
-        keyboard.row(oct_button, nov_button, dec_button)
-        keyboard.row(working_days_per_year)
-        keyboard.row(return_to_menu_button)
-        # await bot.edit_message_text(callback_query.from_user.id, "📅 Выберите месяц:", reply_markup=keyboard)
         await bot.edit_message_text(
             chat_id=callback_query.message.chat.id,
             message_id=callback_query.message.message_id,
@@ -59,7 +36,6 @@ async def working_days_per_year_process_callback_2024(callback_query: types.Call
     try:
         selected_month = callback_query.data
         await state.update_data(month=selected_month)
-        await Form.district.set()
 
         with codecs.open('settings/days_off_2024.json', 'rb') as f:
             data = json.load(f)
@@ -105,7 +81,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Январе 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -133,7 +108,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Феврале 2024"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -160,7 +134,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Марте 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -188,7 +161,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Апреле 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -216,7 +188,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Мае 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -243,7 +214,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Июне 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -269,7 +239,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Июле 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -295,7 +264,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Августе 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -321,7 +289,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Сентябре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -347,7 +314,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Октябре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -373,7 +339,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Ноябре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)
@@ -399,7 +364,6 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
     """Выходные дни в Декабре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     with codecs.open('settings/days_off_2024.json', 'rb') as f:
         data = json.load(f)

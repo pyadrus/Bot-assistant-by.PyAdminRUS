@@ -18,7 +18,7 @@ async def working_days_per_year_process_callback(callback_query: types.CallbackQ
     """Выходные дни в Январе 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
+
     jan_2023 = 17  # 01
     feb_2023 = 18  # 02
     mar_2023 = 22  # 03
@@ -58,7 +58,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Январе 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 17
     norm_working_hours = norm_working_days * 8
@@ -86,7 +85,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Феврале 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 18
     norm_working_hours = norm_working_days * 8
@@ -113,7 +111,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Марте 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 22
     norm_working_hours = norm_working_days * 8
@@ -140,7 +137,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Апреле 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 19
     norm_working_hours = norm_working_days * 8
@@ -167,7 +163,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Мае 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 19
     norm_working_hours = norm_working_days * 8
@@ -194,7 +189,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Июне 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 20
     norm_working_hours = norm_working_days * 8
@@ -221,7 +215,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Июле 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 21
     norm_working_hours = norm_working_days * 8
@@ -248,7 +241,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Августе 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 23
     norm_working_hours = norm_working_days * 8
@@ -275,7 +267,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Сентябре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 21
     norm_working_hours = norm_working_days * 8
@@ -302,7 +293,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Октябре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 21
     norm_working_hours = norm_working_days * 8
@@ -329,7 +319,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Ноябре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 21
     norm_working_hours = norm_working_days * 8
@@ -356,7 +345,6 @@ async def days_off_process_callback_monthh(callback_query: types.CallbackQuery, 
     """Выходные дни в Декабре 2023"""
     selected_month = callback_query.data
     await state.update_data(month=selected_month)
-    await Form.district.set()
 
     norm_working_days = 21
     norm_working_hours = norm_working_days * 8

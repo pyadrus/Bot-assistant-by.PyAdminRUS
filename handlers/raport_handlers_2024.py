@@ -8,8 +8,7 @@ from aiogram.types import Message
 from loguru import logger
 
 from handlers.raport_handlers import perform_database_operations
-from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_for_report_2024, \
-    create_feedback_and_return_to_menu_keyboard
+from keyboards.welcome_keyboard import (return_start_menu_keyboard, keyboard_for_report_2024, create_feedback_and_return_to_menu_keyboard)
 from system.global_variables import Form_2024
 from system.system import dp, bot, router
 

@@ -3,28 +3,18 @@ import os
 
 from aiogram import types, F
 from aiogram.fsm.context import FSMContext
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from loguru import logger
-
+from aiogram.types import FSInputFile
 from database.database import perform_database_operations
-from keyboards.welcome_keyboard import keyboard_go_back
+from keyboards.welcome_keyboard import keyboard_go_back, sample_orders_keyboard
 from system.system import dp, bot, router
 
-logger.add('log/log.log')
 
 @router.callback_query(F.data == "sample_orders")
 async def sample_orders(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта"""
-    keyboard = InlineKeyboardMarkup()
-    payment_on_public_holidays = InlineKeyboardButton(text=f'Оплата за праздничный день',
-                                                      callback_data='payment_on_public_holidays')
-    day_off_for_public_holiday = InlineKeyboardButton(text=f'Выходной за праздничный день',
-                                                      callback_data='day_off_for_public_holiday')
-    return_to_menu_button = InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')
-    keyboard.row(payment_on_public_holidays)
-    keyboard.row(day_off_for_public_holiday)
-    keyboard.row(return_to_menu_button)
-    await bot.send_message(callback_query.from_user.id, "Выберите приказ:", reply_markup=keyboard)
+    await bot.send_message(callback_query.from_user.id, "Выберите приказ:", reply_markup=sample_orders_keyboard())
+
 
 @router.callback_query(F.data == "contract_form")
 async def contract_form(callback_query: types.CallbackQuery, state: FSMContext):
@@ -39,16 +29,19 @@ async def contract_form(callback_query: types.CallbackQuery, state: FSMContext):
         # Поиск и отправка файла
         file_path = f"raports/sample_orders/{file_name}"
         if os.path.isfile(file_path):
-            with open(file_path, "rb") as file:
-                # keyboard_return = keyboard_go_back()
-                await bot.send_document(callback_query.from_user.id, document=file,
-                                        caption=f"{file_name}",
-                                        # reply_markup=keyboard_return
-                                        )
+
+            file = FSInputFile(file_path)
+            await bot.send_document(
+                callback_query.from_user.id,
+                document=file,
+                caption=f"{file_name}",
+            )
+
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
     await state.clear()
+
 
 @router.callback_query(F.data == "limit_form")
 async def limit_form(callback_query: types.CallbackQuery, state: FSMContext):
@@ -63,14 +56,15 @@ async def limit_form(callback_query: types.CallbackQuery, state: FSMContext):
         # Поиск и отправка файла
         file_path = f"raports/sample_orders/{file_name}"
         if os.path.isfile(file_path):
-            with open(file_path, "rb") as file:
-                keyboard_return = keyboard_go_back()
-                await bot.send_document(callback_query.from_user.id, document=file,
-                                        caption=f"Бланк лимитки М-8", reply_markup=keyboard_return)
+            keyboard_return = keyboard_go_back()
+            file = FSInputFile(file_path)
+            await bot.send_document(callback_query.from_user.id, document=file,
+                                    caption=f"Бланк лимитки М-8", reply_markup=keyboard_return)
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
     await state.clear()
+
 
 @router.callback_query(F.data == "payment_on_public_holidays")
 async def payment_on_public_holidays(callback_query: types.CallbackQuery, state: FSMContext):
@@ -85,14 +79,15 @@ async def payment_on_public_holidays(callback_query: types.CallbackQuery, state:
         # Поиск и отправка файла
         file_path = "raports/sample_orders/Оплата праздничные дни.doc"
         if os.path.isfile(file_path):
-            with open(file_path, "rb") as file:
-                keyboard_return = keyboard_go_back()
-                await bot.send_document(callback_query.from_user.id, document=file,
-                                        caption=f"Образец приказа: {file_name}", reply_markup=keyboard_return)
+            file = FSInputFile(file_path)
+            keyboard_return = keyboard_go_back()
+            await bot.send_document(callback_query.from_user.id, document=file,
+                                    caption=f"Образец приказа: {file_name}", reply_markup=keyboard_return)
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
     await state.clear()
+
 
 @router.callback_query(F.data == "day_off_for_public_holiday")
 async def day_off_for_public_holiday(callback_query: types.CallbackQuery, state: FSMContext):
@@ -107,17 +102,14 @@ async def day_off_for_public_holiday(callback_query: types.CallbackQuery, state:
         # Поиск и отправка файла
         file_path = "raports/sample_orders/Выходной за отработанный праздничный день.doc"
         if os.path.isfile(file_path):
-            with open(file_path, "rb") as file:
-                keyboard_return = keyboard_go_back()
-                await bot.send_document(callback_query.from_user.id, document=file,
-                                        caption=f"Образец приказа: {file_name}", reply_markup=keyboard_return)
+            file = FSInputFile(file_path)
+            keyboard_return = keyboard_go_back()
+            await bot.send_document(callback_query.from_user.id, document=file,
+                                    caption=f"Образец приказа: {file_name}", reply_markup=keyboard_return)
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
     await state.clear()
-
-
-
 
 
 def register_sample_orders_handler():
