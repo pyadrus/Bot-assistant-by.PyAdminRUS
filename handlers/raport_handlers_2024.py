@@ -2,39 +2,23 @@ import os
 
 from aiogram import types, F
 from aiogram.fsm.context import FSMContext
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import InputFile
 from loguru import logger
 
 from handlers.raport_handlers import perform_database_operations, create_feedback_and_return_to_menu_keyboard
-from keyboards.welcome_keyboard import return_start_menu_keyboard
-from system.global_variables import *
+from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_for_report_2024
+from system.global_variables import Form_2024
 from system.system import dp, bot, router
 
 
 @router.callback_query(F.data == "rap_2024")
 async def process_callback_month_2024(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта"""
-    keyboard = InlineKeyboardMarkup()
-    keyboard.row(InlineKeyboardButton(text=f'✅ {jan_2024}', callback_data='01_jan_rap_2024'), 
-                 InlineKeyboardButton(text=f'✅ {feb_2024}', callback_data='02_feb_rap_2024'), 
-                 InlineKeyboardButton(text=f'✅ {mar_2024}', callback_data='03_mar_rap_2024'))
-    keyboard.row(InlineKeyboardButton(text=f'✅ {apr_2024}', callback_data='04_apr_rap_2024'), 
-                 InlineKeyboardButton(text=f'✅ {may_2024}', callback_data='05_may_rap_2024'), 
-                 InlineKeyboardButton(text=f'✅ {june_2024}', callback_data='06_jun_rap_2024'))
-    keyboard.row(InlineKeyboardButton(text=f'✅ {jul_2024}', callback_data='07_jul_rap_2024'), 
-                 InlineKeyboardButton(text=f'✅ {aug_2024}', callback_data='08_aug_rap_2024'), 
-                 InlineKeyboardButton(text=f'{sep_2024}', callback_data='09_sep_rap_2024'))
-    keyboard.row(InlineKeyboardButton(text=f'{oct_2024}', callback_data='10_oct_rap_2024'), 
-                 InlineKeyboardButton(text=f'{nov_2024}', callback_data='11_nov_rap_2024'), 
-                 InlineKeyboardButton(text=f'{dec_2024}', callback_data='12_dec_rap_2024'))
-    keyboard.row(InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu'))
-
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
         text="📅 Выберите месяц:",
-        reply_markup=keyboard
+        reply_markup=keyboard_for_report_2024()
     )
 
 @router.callback_query(F.data == "01_jan_rap_2024")
