@@ -2,13 +2,14 @@ import asyncio
 import configparser
 import logging
 import sys
-
 from aiogram import types, F
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
+from aiogram.types import Message
 from loguru import logger
 from aiogram.filters import Command
+
 from handlers.admin_handlers.admin_handlers import register_handlers_admin
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
@@ -31,14 +32,14 @@ logger.add('log/log.log')
 
 
 @dp.message(CommandStart())
-async def start_command(message: types.Message, state: FSMContext):
+async def start_command(message: Message, state: FSMContext):
     """Handle the /start command."""
     await state.clear()
     main_keyboard = welcome_keyboard()  # Welcome keyboard
     await bot.send_message(chat_id=message.chat.id, text=welcome_text, reply_markup=main_keyboard)
 
 @router.message(Command("admin"))
-async def admin_start_command(message: types.Message, state: FSMContext):
+async def admin_start_command(message: Message, state: FSMContext):
     """Админ панель"""
     await state.clear()
     main_keyboard = welcome_keyboard_admin()

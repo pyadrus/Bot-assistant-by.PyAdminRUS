@@ -1,9 +1,9 @@
 import json
 import os
-
+from aiogram.types import FSInputFile
 from aiogram import F
 from aiogram import types
-from aiogram.types import InputFile
+
 from loguru import logger
 
 from system.system import dp, bot, router
@@ -51,9 +51,11 @@ async def checking_availability_of_reports(callback_query: types.CallbackQuery):
 
         if missing_files:
             # Send the document using InputFile
-            with open(txt_file_path, "rb") as file:
-                await bot.send_document(callback_query.from_user.id,
-                                        document=InputFile(file),
+            file = FSInputFile(txt_file_path)
+
+            # with open(txt_file_path, "rb") as file:
+            await bot.send_document(callback_query.from_user.id,
+                                        document=file,
                                         caption=f"Отсутствующие рапорта {dir}")
         else:
             await bot.send_message(callback_query.from_user.id, f"Все файлы на месте для {dir}.")
