@@ -20,7 +20,7 @@ async def checking_availability_of_reports(callback_query: types.CallbackQuery):
     for dir in folder_dic:
         logger.info(dir)
 
-        folder_path = f"raports/rap_2024/{dir}"
+        folder_path = f"raports/rap_2025/{dir}"
 
         if not os.path.exists(folder_path):
             logger.error(f"Directory {folder_path} does not exist")
@@ -29,7 +29,7 @@ async def checking_availability_of_reports(callback_query: types.CallbackQuery):
         # Создаем список файлов в папке
         existing_files = os.listdir(folder_path)
 
-        json_file_path = f'raports/rap_2024/{dir}/rap_2024.json'
+        json_file_path = f'raports/rap_2025/{dir}/rap_2025.json'
         if not os.path.exists(json_file_path):
             logger.error(f"JSON file {json_file_path} does not exist")
             continue
@@ -55,8 +55,8 @@ async def checking_availability_of_reports(callback_query: types.CallbackQuery):
 
             # with open(txt_file_path, "rb") as file:
             await bot.send_document(callback_query.from_user.id,
-                                        document=file,
-                                        caption=f"Отсутствующие рапорта {dir}")
+                                    document=file,
+                                    caption=f"Отсутствующие рапорта {dir}")
         else:
             await bot.send_message(callback_query.from_user.id, f"Все файлы на месте для {dir}.")
 

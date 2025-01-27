@@ -9,8 +9,8 @@ from aiogram.types import Message
 from loguru import logger
 
 from database.database import perform_database_operations
-from keyboards.welcome_keyboard import return_start_menu_keyboard, keyboard_go_back, keyboard_for_report_2023, \
-    create_feedback_and_return_to_menu_keyboard
+from keyboards.welcome_keyboard import (return_start_menu_keyboard, keyboard_go_back, keyboard_for_report_2023,
+                                        create_feedback_and_return_to_menu_keyboard)
 from system.global_variables import Form
 from system.system import dp, bot, router
 
@@ -19,8 +19,8 @@ from system.system import dp, bot, router
 async def process_callback_month(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта 2023"""
     try:
-        await bot.edit_message_text(chat_id=callback_query.message.chat.id,
-                                    message_id=callback_query.message.message_id,
+        await bot.send_message(chat_id=callback_query.from_user.id,
+                                    # message_id=callback_query.message.message_id,
                                     text="📅 Выберите месяц:",
                                     reply_markup=keyboard_for_report_2023())
     except Exception as e:
@@ -223,7 +223,8 @@ async def process_district(message: Message, state: FSMContext):
         username = message.from_user.username
         timestamp = str(message.date)
         file_name = district + '.xls'
-        logger.info(f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
+        logger.info(
+            f'Пользователь: username {username}, ID {user_id} в {timestamp} запросил рапорт участка {district_name}')
         perform_database_operations(user_id, username, timestamp, file_name)
         # Поиск и отправка файла
         file_path = f"raports/rap_2023/{month}_2023/{district}.xls"
@@ -247,8 +248,6 @@ async def process_district(message: Message, state: FSMContext):
         keyboard = create_feedback_and_return_to_menu_keyboard()
         await message.answer(report_no_text_found, reply_markup=keyboard)
     await state.clear()
-
-
 
 
 @router.message(Command("участки"))

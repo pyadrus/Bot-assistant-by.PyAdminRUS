@@ -39,6 +39,19 @@ oct_2024 = 'Октябрь 24'
 nov_2024 = 'Ноябрь 24'
 dec_2024 = 'Декабрь 24'
 
+jan_2025 = 'Январь 25'
+feb_2025 = 'Февраль 25'
+mar_2025 = 'Март 25'
+apr_2025 = 'Апрель 25'
+may_2025 = 'Май 25'
+june_2025 = 'Июнь 25'
+jul_2025 = 'Июль 25'
+aug_2025 = 'Август 25'
+sep_2025 = 'Сентябрь 25'
+oct_2025 = 'Октябрь 25'
+nov_2025 = 'Ноябрь 25'
+dec_2025 = 'Декабрь 25'
+
 
 class Form(StatesGroup):
     month = State()
@@ -48,3 +61,8 @@ class Form(StatesGroup):
 class Form_2024(StatesGroup):
     month_2024 = State()
     district_2024 = State()
+
+
+class Form_2025(StatesGroup):
+    month_2025 = State()
+    district_2025 = State()

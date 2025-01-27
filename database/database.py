@@ -1,5 +1,6 @@
 import sqlite3
 
+
 # Определение функции для операций с базой данных
 def perform_database_operations(user_id, username, timestamp, file_name):
     conn = sqlite3.connect('settings/database.db')

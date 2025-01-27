@@ -29,7 +29,6 @@ async def contract_form(callback_query: types.CallbackQuery, state: FSMContext):
         # Поиск и отправка файла
         file_path = f"raports/sample_orders/{file_name}"
         if os.path.isfile(file_path):
-
             file = FSInputFile(file_path)
             await bot.send_document(
                 callback_query.from_user.id,

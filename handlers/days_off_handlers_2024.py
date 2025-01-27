@@ -30,6 +30,7 @@ async def days_off_callback_month_2024(callback_query: types.CallbackQuery):
     except Exception as e:
         logger.error(e)
 
+
 @router.callback_query(F.data == "working_days_per_year_2024")
 async def working_days_per_year_process_callback_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Январе 2023"""
@@ -76,6 +77,7 @@ def counting_working_days(norm_working_days):
     norm_hours_24h_shift = math.ceil(norm_working_hours / 24)
     return norm_working_hours, norm_hours_12h_shift, norm_hours_24h_shift
 
+
 @router.callback_query(F.data == "jan_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Январе 2023"""
@@ -103,6 +105,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
 
+
 @router.callback_query(F.data == "feb_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Феврале 2024"""
@@ -128,6 +131,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n'
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
+
 
 @router.callback_query(F.data == "mar_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -156,6 +160,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
 
+
 @router.callback_query(F.data == "apr_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Апреле 2023"""
@@ -183,6 +188,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
 
+
 @router.callback_query(F.data == "may_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Мае 2023"""
@@ -209,6 +215,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
 
+
 @router.callback_query(F.data == "june_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Июне 2023"""
@@ -233,6 +240,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n'
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
+
 
 @router.callback_query(F.data == "jul_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -259,6 +267,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
 
+
 @router.callback_query(F.data == "aug_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Августе 2023"""
@@ -283,6 +292,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n'
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
+
 
 @router.callback_query(F.data == "sep_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
@@ -309,6 +319,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
 
+
 @router.callback_query(F.data == "oct_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Октябре 2023"""
@@ -334,6 +345,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
 
+
 @router.callback_query(F.data == "nov_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):
     """Выходные дни в Ноябре 2023"""
@@ -358,6 +370,7 @@ async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQu
                                   f'<code>🔨 Выходов для 24 часовых:</code><b> {norm_hours_24h_shift}</b>\n'
                                   f'\nНажмите /start, чтобы вернуться в начало', parse_mode="HTML", reply_markup=markup)
     await state.clear()
+
 
 @router.callback_query(F.data == "dec_days_off_2024")
 async def days_off_process_callback_monthh_2024(callback_query: types.CallbackQuery, state: FSMContext):

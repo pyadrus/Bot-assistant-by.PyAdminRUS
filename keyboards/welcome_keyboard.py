@@ -1,9 +1,11 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from loguru import logger
 
-from system.global_variables import jan, mar, apr, may, june, jul, aug, sep, oct_23, nov, dec, feb, jan_2024, feb_2024, \
-    mar_2024, apr_2024, may_2024, june_2024, jul_2024, aug_2024, sep_2024, oct_2024, nov_2024, dec_2024, jan_22, feb_22, \
-    mar_22, apr_22, may_22, june_22, jul_22, aug_22, sep_22, oct_22, nov_22, dec_22
+from system.global_variables import (jan, mar, apr, may, june, jul, aug, sep, oct_23, nov, dec, feb, jan_2024, feb_2024,
+                                     mar_2024, apr_2024, may_2024, june_2024, jul_2024, aug_2024, sep_2024, oct_2024,
+                                     nov_2024, dec_2024, jan_22, feb_22, mar_22, apr_22, may_22, june_22, jul_22,
+                                     aug_22, sep_22, oct_22, nov_22, dec_22, jan_2025, feb_2025, mar_2025, apr_2025,
+                                     may_2025, june_2025, jul_2025, aug_2025, sep_2025, oct_2025, nov_2025, dec_2025)
 
 
 def welcome_keyboard():
@@ -12,6 +14,8 @@ def welcome_keyboard():
         rows = [
             [InlineKeyboardButton(text='🔨Рапорта 2023', callback_data='rap'),
              InlineKeyboardButton(text='🔨Рапорта 2024', callback_data='rap_2024')],
+
+            [InlineKeyboardButton(text="🔨Рапорта 2025", callback_data="rap_2025")],
 
             [InlineKeyboardButton(text="📈 Табеля", callback_data="table")],
 
@@ -60,25 +64,53 @@ def keyboard_for_report_2023():
         logger.exception(e)
 
 
+def keyboard_for_report_2025():
+    """Клавиатура для рапорта 2025"""
+    try:
+        rows = [
+            [InlineKeyboardButton(text=f'✅ {jan_2025}', callback_data='01_jan_rap_2025'),
+             InlineKeyboardButton(text=f'{feb_2025}', callback_data='02_feb_rap_2025'),
+             InlineKeyboardButton(text=f'{mar_2025}', callback_data='03_mar_rap_2025')],
+
+            [InlineKeyboardButton(text=f'{apr_2025}', callback_data='04_apr_rap_2025'),
+             InlineKeyboardButton(text=f'{may_2025}', callback_data='05_may_rap_2025'),
+             InlineKeyboardButton(text=f'{june_2025}', callback_data='06_jun_rap_2025')],
+
+            [InlineKeyboardButton(text=f'{jul_2025}', callback_data='07_jul_rap_2025'),
+             InlineKeyboardButton(text=f'{aug_2025}', callback_data='08_aug_rap_2025'),
+             InlineKeyboardButton(text=f'{sep_2025}', callback_data='09_sep_rap_2025')],
+
+            [InlineKeyboardButton(text=f'{oct_2025}', callback_data='10_oct_rap_2025'),
+             InlineKeyboardButton(text=f'{nov_2025}', callback_data='11_nov_rap_2025'),
+             InlineKeyboardButton(text=f'{dec_2025}', callback_data='12_dec_rap_2025')],
+
+            [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+        ]
+        main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
+        return main_keyboard
+    except Exception as e:
+        logger.exception(e)
+
+
 def keyboard_for_report_2024():
     """Клавиатура для рапорта 2024"""
     try:
         rows = [
             [InlineKeyboardButton(text=f'✅ {jan_2024}', callback_data='01_jan_rap_2024'),
-                 InlineKeyboardButton(text=f'✅ {feb_2024}', callback_data='02_feb_rap_2024'),
-                 InlineKeyboardButton(text=f'✅ {mar_2024}', callback_data='03_mar_rap_2024')],
+             InlineKeyboardButton(text=f'✅ {feb_2024}', callback_data='02_feb_rap_2024'),
+             InlineKeyboardButton(text=f'✅ {mar_2024}', callback_data='03_mar_rap_2024')],
 
             [InlineKeyboardButton(text=f'✅ {apr_2024}', callback_data='04_apr_rap_2024'),
-                 InlineKeyboardButton(text=f'✅ {may_2024}', callback_data='05_may_rap_2024'),
-                 InlineKeyboardButton(text=f'✅ {june_2024}', callback_data='06_jun_rap_2024')],
+             InlineKeyboardButton(text=f'✅ {may_2024}', callback_data='05_may_rap_2024'),
+             InlineKeyboardButton(text=f'✅ {june_2024}', callback_data='06_jun_rap_2024')],
 
             [InlineKeyboardButton(text=f'✅ {jul_2024}', callback_data='07_jul_rap_2024'),
-                 InlineKeyboardButton(text=f'✅ {aug_2024}', callback_data='08_aug_rap_2024'),
-                 InlineKeyboardButton(text=f'✅ {sep_2024}', callback_data='09_sep_rap_2024')],
+             InlineKeyboardButton(text=f'✅ {aug_2024}', callback_data='08_aug_rap_2024'),
+             InlineKeyboardButton(text=f'✅ {sep_2024}', callback_data='09_sep_rap_2024')],
 
-            [InlineKeyboardButton(text=f'{oct_2024}', callback_data='10_oct_rap_2024'),
-                 InlineKeyboardButton(text=f'{nov_2024}', callback_data='11_nov_rap_2024'),
-                 InlineKeyboardButton(text=f'{dec_2024}', callback_data='12_dec_rap_2024')],
+            [InlineKeyboardButton(text=f'✅ {oct_2024}', callback_data='10_oct_rap_2024'),
+             InlineKeyboardButton(text=f'✅ {nov_2024}', callback_data='11_nov_rap_2024'),
+             InlineKeyboardButton(text=f'✅ {dec_2024}', callback_data='12_dec_rap_2024')],
 
             [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
         ]
@@ -95,7 +127,8 @@ def return_start_menu_keyboard():
         rows = [
             [InlineKeyboardButton(text='🔨Рапорта 2023', callback_data='rap')],
             [InlineKeyboardButton(text='🔨Рапорта 2024', callback_data='rap_2024')],
-             [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+            [InlineKeyboardButton(text='🔨Рапорта 2025', callback_data='rap_2025')],
+            [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
         ]
         keyboard_return = InlineKeyboardMarkup(inline_keyboard=rows)
         return keyboard_return
@@ -139,7 +172,8 @@ def work_on_days_off_2022():
          InlineKeyboardButton(text=f'✅ {nov_22}', callback_data='nov_days_off_2022'),
          InlineKeyboardButton(text=f'✅ {dec_22}', callback_data='dec_days_off_2022')],
 
-        [InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2022 году', callback_data='working_days_per_year_2022')],
+        [InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2022 году',
+                              callback_data='working_days_per_year_2022')],
 
         [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
     ]
@@ -167,7 +201,7 @@ def work_on_days_off_2023():
          InlineKeyboardButton(text=f'✅ {dec}', callback_data='dec_days_off')],
 
         [InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2023 году',
-                                                 callback_data='working_days_per_year')],
+                              callback_data='working_days_per_year')],
 
         [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
     ]
@@ -195,7 +229,7 @@ def work_on_days_off_2024(data):
          InlineKeyboardButton(text=f'{data["dec_2024"][0]}', callback_data='dec_days_off_2024')],
 
         [InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2024 году',
-                                                     callback_data='working_days_per_year_2024')],
+                              callback_data='working_days_per_year_2024')],
 
         [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
     ]
@@ -208,13 +242,14 @@ def sample_orders_keyboard():
     # Создаем клавиатуру с двумя кнопками
     rows = [
         [InlineKeyboardButton(text=f'Оплата за праздничный день',
-                                                      callback_data='payment_on_public_holidays')],
+                              callback_data='payment_on_public_holidays')],
         [InlineKeyboardButton(text=f'Выходной за праздничный день',
-                                                      callback_data='day_off_for_public_holiday')],
+                              callback_data='day_off_for_public_holiday')],
         [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
     ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
     return keyboard
+
 
 def create_feedback_and_return_to_menu_keyboard():
     # Создаем клавиатуру с двумя кнопками
@@ -225,6 +260,7 @@ def create_feedback_and_return_to_menu_keyboard():
     ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
     return keyboard
+
 
 def keyboard_go_back() -> InlineKeyboardMarkup:
     """Клавиатура '↩️ Вернуться в начальное меню'"""
