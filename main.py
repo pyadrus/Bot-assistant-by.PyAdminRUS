@@ -14,6 +14,7 @@ from handlers.admin_handlers.admin_handlers import register_handlers_admin
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2024 import register_days_off_callback_month_handler_2024
+from handlers.days_off_handlers_2025 import register_days_off_callback_month_handler_2025
 from handlers.raport_handlers import register_raport_handler
 from handlers.raport_handlers_2024 import register_raport_handler_2024
 from handlers.raport_handlers_2025 import register_raport_handler_2025
@@ -98,6 +99,7 @@ async def main() -> None:
         register_raport_handler()  # Рапорт 2023
         register_days_off_callback_month_handler()  # Выходные дни в 2023 году
         register_days_off_callback_month_handler_2024()  # Выходные дни в 2024 году
+        register_days_off_callback_month_handler_2025()  # Выходные дни в 2025 году
         register_sample_orders_handler()  # Образцы приказов
         register_raport_handler_2024()  # Рапорта 2024
         register_raport_handler_2025()  # Рапорт 2025

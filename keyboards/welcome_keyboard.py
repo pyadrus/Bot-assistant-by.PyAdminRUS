@@ -23,6 +23,7 @@ def welcome_keyboard():
              InlineKeyboardButton(text='📅 Выходные дни 2023', callback_data='days_off')],
 
             [InlineKeyboardButton(text='📅 Выходные дни 2024', callback_data='days_off_24')],
+            [InlineKeyboardButton(text='📅 Выходные дни 2025', callback_data='days_off_25')],
 
             [InlineKeyboardButton(text='🗂 Образцы приказов', callback_data='sample_orders'),
              InlineKeyboardButton(text='Бланк лимитки М-8', callback_data='limit_form')],
@@ -236,6 +237,32 @@ def work_on_days_off_2024(data):
     main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
     return main_keyboard
 
+def work_on_days_off_2025(data):
+    """Работа в выходной день 2025"""
+    rows = [
+        [InlineKeyboardButton(text=f' {data["jan_2025"][0]}', callback_data='jan_days_off_2025'),
+         InlineKeyboardButton(text=f' {data["feb_2025"][0]}', callback_data='feb_days_off_2025'),
+         InlineKeyboardButton(text=f' {data["mar_2025"][0]}', callback_data='mar_days_off_2025')],
+
+        [InlineKeyboardButton(text=f' {data["apr_2025"][0]}', callback_data='apr_days_off_2025'),
+         InlineKeyboardButton(text=f' {data["may_2025"][0]}', callback_data='may_days_off_2025'),
+         InlineKeyboardButton(text=f' {data["june_2025"][0]}', callback_data='june_days_off_2025')],
+
+        [InlineKeyboardButton(text=f' {data["jul_2025"][0]}', callback_data='jul_days_off_2025'),
+         InlineKeyboardButton(text=f' {data["aug_2025"][0]}', callback_data='aug_days_off_2025'),
+         InlineKeyboardButton(text=f' {data["sep_2025"][0]}', callback_data='sep_days_off_2025')],
+
+        [InlineKeyboardButton(text=f'{data["oct_2025"][0]}', callback_data='oct_days_off_2025'),
+         InlineKeyboardButton(text=f'{data["nov_2025"][0]}', callback_data='nov_days_off_2025'),
+         InlineKeyboardButton(text=f'{data["dec_2025"][0]}', callback_data='dec_days_off_2025')],
+
+        [InlineKeyboardButton(text=f'🔨 Количество рабочих дней в 2025 году',
+                              callback_data='working_days_per_year_2025')],
+
+        [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')],
+    ]
+    main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
+    return main_keyboard
 
 def sample_orders_keyboard():
     """Клавиатура с примерными образцами приказов"""
