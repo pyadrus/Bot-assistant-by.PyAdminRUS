@@ -13,9 +13,9 @@ from system.system import dp, bot, router
 async def checking_availability_of_reports(callback_query: types.CallbackQuery):
     """Проверка наличия рапортов"""
     # Путь к папке с файлами
-    folder_dic = ["01_jan_rap_2024", "02_feb_rap_2024", "03_mar_rap_2024", "04_apr_rap_2024", "05_may_rap_2024",
-                  "06_jun_rap_2024", "07_jul_rap_2024", "08_aug_rap_2024", "09_sep_rap_2024", "10_oct_rap_2024",
-                  "11_nov_rap_2024", "12_dec_rap_2024"]
+    folder_dic = ["01_jan_rap_2025", "02_feb_rap_2025", "03_mar_rap_2025", "04_apr_rap_2025", "05_may_rap_2025",
+                  "06_jun_rap_2025", "07_jul_rap_2025", "08_aug_rap_2025", "09_sep_rap_2025", "10_oct_rap_2025",
+                  "11_nov_rap_2025", "12_dec_rap_2025"]
 
     for dir in folder_dic:
         logger.info(dir)
