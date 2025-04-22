@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import json
 import os
-from aiogram.types import FSInputFile
+
 from aiogram import F
 from aiogram import types
-
+from aiogram.types import FSInputFile
 from loguru import logger
 
 from system.system import dp, bot, router

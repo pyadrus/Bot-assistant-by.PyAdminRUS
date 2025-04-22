@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import math
 
 from aiogram import types, F
