@@ -21,9 +21,9 @@ async def process_callback_month(callback_query: types.CallbackQuery):
     """Кнопки с месяцами рапорта 2023"""
     try:
         await bot.send_message(chat_id=callback_query.from_user.id,
-                                    # message_id=callback_query.message.message_id,
-                                    text="📅 Выберите месяц:",
-                                    reply_markup=keyboard_for_report_2023())
+                               # message_id=callback_query.message.message_id,
+                               text="📅 Выберите месяц:",
+                               reply_markup=keyboard_for_report_2023())
     except Exception as e:
         logger.exception(e)
 

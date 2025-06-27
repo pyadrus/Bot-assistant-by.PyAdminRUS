@@ -12,6 +12,7 @@ from aiogram.types import Message
 from loguru import logger
 
 from handlers.admin_handlers.admin_handlers import register_handlers_admin
+from handlers.birthday import register_birthday_handlers
 from handlers.days_off_handlers_2022 import day_off_handler_22
 from handlers.days_off_handlers_2023 import register_days_off_callback_month_handler
 from handlers.days_off_handlers_2024 import register_days_off_callback_month_handler_2024
@@ -105,6 +106,8 @@ async def main() -> None:
         register_raport_handler_2024()  # Рапорта 2024
         register_raport_handler_2025()  # Рапорт 2025
         register_handlers_admin()  # Админ панель
+
+        register_birthday_handlers()  # Именинники
     except Exception as e:
         logger.info(e)
 

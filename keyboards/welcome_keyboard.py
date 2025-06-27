@@ -31,6 +31,7 @@ def welcome_keyboard():
 
             [InlineKeyboardButton(text='Образец договор', callback_data='contract_form')],
             [InlineKeyboardButton(text='⁉️ Напомнить, замечание', callback_data='feedback')],
+            [InlineKeyboardButton(text='🎂 Именинники', callback_data='birthday')],
         ]
         main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
         return main_keyboard
@@ -238,6 +239,7 @@ def work_on_days_off_2024(data):
     main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
     return main_keyboard
 
+
 def work_on_days_off_2025(data):
     """Работа в выходной день 2025"""
     rows = [
@@ -264,6 +266,7 @@ def work_on_days_off_2025(data):
     ]
     main_keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
     return main_keyboard
+
 
 def sample_orders_keyboard():
     """Клавиатура с примерными образцами приказов"""
@@ -292,16 +295,9 @@ def create_feedback_and_return_to_menu_keyboard():
 
 def keyboard_go_back() -> InlineKeyboardMarkup:
     """Клавиатура '↩️ Вернуться в начальное меню'"""
-    try:
-        # Создаем клавиатуру с двумя кнопками
-        rows = [
-            [InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')]
-        ]
-        keyboard = InlineKeyboardMarkup(inline_keyboard=rows)
-        return keyboard
-
-    except Exception as e:
-        logger.exception(e)
+    return InlineKeyboardMarkup(
+        inline_keyboard=[[InlineKeyboardButton(text='↩️  Вернуться в начальное меню', callback_data='menu')]]
+    )
 
 
 if __name__ == "__main__":
